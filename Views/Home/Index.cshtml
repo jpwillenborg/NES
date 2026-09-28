@@ -109,15 +109,15 @@
                     }
 
                     <div class="bg-[#111823] rounded-[10px] p-4 flex items-center gap-4 transition-colors duration-250 ease-out hover:bg-[#161f2d] cursor-pointer shadow-md group game-comparison-card flex-shrink-0" style="border: none !important;" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate" data-datekey="@rawDateKey">
-                        <div class="flex-shrink-0 w-14 h-16 bg-black/40 overflow-hidden rounded-[4px]" style="border: none !important;">
+                        <div class="flex-shrink-0 w-14 h-auto min-h-[4rem] bg-black/20 rounded-[4px] p-0.5 flex items-center justify-center overflow-hidden" style="border: none !important;">
                             @if (!string.IsNullOrEmpty(imageUrl))
                             {
-                                <img src="@imageUrl" alt="" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                                <img src="@imageUrl" alt="" class="w-full h-auto max-h-16 object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
                             }
                         </div>
-                        <div class="flex-grow text-left">
-                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight group-hover:text-[#8c9b96] transition-colors">@item.IgdbData.Name</h4>
-                            <span class="text-[#a0aec0] text-[0.85rem] font-mono block pt-1">@item.MapperChip | @displayDate</span>
+                        <div class="flex-grow text-left min-w-0 w-full overflow-hidden">
+                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight group-hover:text-[#8c9b96] transition-colors truncate block">@item.IgdbData.Name</h4>
+                            <span class="text-[#a0aec0] text-[0.85rem] font-mono block pt-1 truncate">@item.MapperChip | @displayDate</span>
                         </div>
                         <div class="flex-shrink-0 text-right flex flex-col gap-1 items-end">
                             <span class="bg-black/40 px-2 py-0.5 rounded-[4px] font-mono text-[0.85rem] font-bold text-white" style="border: none !important;">@item.SizeInKb K</span>
@@ -130,27 +130,27 @@
 
         <div class="col-span-1 md:col-span-2 flex flex-col gap-6 h-full justify-between">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
-                <div class="bg-[#111823] p-5 rounded-[16px] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center" style="border-top: none !important; border-right: none !important; border-bottom: none !important;">
-                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] flex-shrink-0" style="border: none !important;">
-                        <img id="slot-a-img" src="" alt="" class="w-full h-full object-cover hidden" />
+                <div class="bg-[#111823] p-4 rounded-[16px] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="border-top: none !important; border-right: none !important; border-bottom: none !important; height: 120px !important;">
+                    <div class="w-16 h-24 bg-black/20 rounded-[6px] p-0.5 flex-shrink-0 flex items-center justify-center overflow-hidden" style="border: none !important;">
                         <div id="slot-a-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ A ]</div>
+                        <img id="slot-a-img" src="" alt="" class="max-w-full max-h-full object-contain hidden" />
                     </div>
-                    <div class="text-left flex flex-col gap-1">
-                        <span class="text-[0.8rem] font-bold text-[#ce0e00] uppercase tracking-wider block">Cartridge A Active</span>
-                        <strong id="slot-a-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight">Select Component...</strong>
-                        <span id="slot-a-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block">00 KB | NROM | NONE</span>
+                    <div class="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
+                        <span class="text-[0.8rem] font-bold text-[#ce0e00] uppercase tracking-wider block leading-none">Cart A Active</span>
+                        <strong id="slot-a-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight truncate block pt-1">Select Component...</strong>
+                        <span id="slot-a-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block truncate leading-none pt-1">00 KB | NROM | NONE</span>
                     </div>
                 </div>
 
-                <div class="bg-[#111823] p-5 rounded-[16px] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center" style="border-top: none !important; border-right: none !important; border-bottom: none !important;">
-                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] flex-shrink-0" style="border: none !important;">
-                        <img id="slot-b-img" src="" alt="" class="w-full h-full object-cover hidden" />
+                <div class="bg-[#111823] p-4 rounded-[16px] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="border-top: none !important; border-right: none !important; border-bottom: none !important; height: 120px !important;">
+                    <div class="w-16 h-24 bg-black/20 rounded-[6px] p-0.5 flex-shrink-0 flex items-center justify-center overflow-hidden" style="border: none !important;">
                         <div id="slot-b-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ B ]</div>
+                        <img id="slot-b-img" src="" alt="" class="max-w-full max-h-full object-contain hidden" />
                     </div>
-                    <div class="text-left flex flex-col gap-1">
-                        <span class="text-[0.8rem] font-bold text-[#8c9b96] uppercase tracking-wider block">Cartridge B Active</span>
-                        <strong id="slot-b-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight">Select Component...</strong>
-                        <span id="slot-b-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block">00 KB | NROM | NONE</span>
+                    <div class="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
+                        <span class="text-[0.8rem] font-bold text-[#8c9b96] uppercase tracking-wider block leading-none">Cart B Active</span>
+                        <strong id="slot-b-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight truncate block pt-1">Select Component...</strong>
+                        <span id="slot-b-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block truncate leading-none pt-1">00 KB | NROM | NONE</span>
                     </div>
                 </div>
             </div>
@@ -178,11 +178,11 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-3 h-3 bg-[#ce0e00] rounded-[2px]"></div>
-                            <span>Cartridge A Only</span>
+                            <span>Cart A Only</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-3 h-3 bg-[#8c9b96] rounded-[2px]"></div>
-                            <span>Cartridge B Only</span>
+                            <span>Cart B Only</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-3 h-3 bg-[#ef4444] rounded-[2px]"></div>
@@ -236,17 +236,17 @@ document.addEventListener("DOMContentLoaded", () => {
             if (clickCounter % 2 !== 0) {
                 sizeA = size;
                 updateSlot(slotA, name, size, chip, date, imgSrc);
-                clearBadgeText("Cartridge A");
+                clearBadgeText("Cart A");
                 if (statusBadge) {
-                    statusBadge.textContent = "Cartridge A";
+                    statusBadge.textContent = "Cart A";
                     statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#ce0e00] tracking-wider uppercase slot-status-badge";
                 }
             } else {
                 sizeB = size;
                 updateSlot(slotB, name, size, chip, date, imgSrc);
-                clearBadgeText("Cartridge B");
+                clearBadgeText("Cart B");
                 if (statusBadge) {
-                    statusBadge.textContent = "Cartridge B";
+                    statusBadge.textContent = "Cart B";
                     statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#8c9b96] tracking-wider uppercase slot-status-badge";
                 }
             }
