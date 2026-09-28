@@ -48,6 +48,10 @@
         appearance: none !important;
         padding-right: 3rem !important;
     }
+    #allocation-matrix-grid {
+        display: grid !important;
+        grid-template-columns: repeat(24, minmax(0, 1fr)) !important;
+    }
 </style>
 
 <div id="nes-matrix-wrapper" class="w-full relative pb-12">
@@ -164,7 +168,7 @@
                 </div>
                 
                 <div class="bg-[#090d16] rounded-[12px] p-6 flex flex-col gap-4 box-border flex-grow justify-between" style="border: none !important;">
-                    <div id="allocation-matrix-grid" class="grid grid-cols-16 sm:grid-cols-32 gap-1.5 w-full justify-center p-1">
+                    <div id="allocation-matrix-grid" class="gap-1.5 w-full justify-center p-1">
                         @for (int i = 0; i < 768; i++)
                         {
                             <div class="aspect-square bg-[#111823] rounded-[2px] transition-all duration-150 memory-block-node" data-index="@i" title="Memory Block @(i + 1) (1 KB)" style="border: none !important;"></div>
