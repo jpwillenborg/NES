@@ -15,3 +15,20 @@
     }
   }
 }
+
+.portfolio-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff;
+}
