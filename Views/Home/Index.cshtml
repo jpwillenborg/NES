@@ -14,7 +14,7 @@
             Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
         </p>
         <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-wide pt-2">
-            Select two games from the list to see how <span class="text-[#df3337] font-semibold">CARTRIDGE A</span> and <span class="text-[#00b2c7] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
+            Select two games from the list to see how <span class="text-[#ce0e00] font-semibold">CARTRIDGE A</span> and <span class="text-[#8c9b96] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
         </p>
     </div>
 
@@ -48,8 +48,17 @@
                         : "";
                     
                     var splitParts = item.ReleaseYear.Split('|');
-                    var displayDate = splitParts.Length > 1 ? splitParts[1] : item.ReleaseYear;
-                    var rawDateKey = splitParts.Length > 0 ? splitParts[0] : "";
+                    string displayDate = item.ReleaseYear;
+                    string rawDateKey = "";
+
+                    if (splitParts.Length > 1)
+                    {
+                        displayDate = splitParts[1];
+                    }
+                    if (splitParts.Length > 0)
+                    {
+                        rawDateKey = splitParts[0];
+                    }
 
                     <div class="bg-[#111823] border border-[#1f2937] rounded-[10px] p-4 flex items-center gap-4 transition-colors duration-250 ease-out hover:bg-[#161f2d] cursor-pointer shadow-md group game-comparison-card flex-shrink-0" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate" data-datekey="@rawDateKey">
                         <div class="flex-shrink-0 w-14 h-16 bg-black/40 overflow-hidden rounded-[4px] border border-[#1f2937]">
@@ -59,7 +68,7 @@
                             }
                         </div>
                         <div class="flex-grow text-left">
-                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight group-hover:text-[#00b2c7] transition-colors">@item.IgdbData.Name</h4>
+                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight group-hover:text-[#8c9b96] transition-colors">@item.IgdbData.Name</h4>
                             <span class="text-[#a0aec0] text-[0.85rem] font-mono block pt-1">@item.MapperChip | @displayDate</span>
                         </div>
                         <div class="flex-shrink-0 text-right flex flex-col gap-1 items-end">
@@ -72,25 +81,25 @@
         </div>
         <div class="col-span-1 md:col-span-2 flex flex-col gap-6 h-full justify-between">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
-                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#df3337] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
+                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
                     <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] border border-[#1f2937] flex-shrink-0">
                         <img id="slot-a-img" src="" alt="" class="w-full h-full object-cover hidden" />
                         <div id="slot-a-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ A ]</div>
                     </div>
                     <div class="text-left flex flex-col gap-1">
-                        <span class="text-[0.8rem] font-bold text-[#df3337] uppercase tracking-wider block">Cartridge A Active</span>
+                        <span class="text-[0.8rem] font-bold text-[#ce0e00] uppercase tracking-wider block">Cartridge A Active</span>
                         <strong id="slot-a-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight">Select Component...</strong>
                         <span id="slot-a-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block">00 KB | NROM | NONE</span>
                     </div>
                 </div>
 
-                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#00b2c7] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
+                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
                     <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] border border-[#1f2937] flex-shrink-0">
                         <img id="slot-b-img" src="" alt="" class="w-full h-full object-cover hidden" />
                         <div id="slot-b-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ B ]</div>
                     </div>
                     <div class="text-left flex flex-col gap-1">
-                        <span class="text-[0.8rem] font-bold text-[#00b2c7] uppercase tracking-wider block">Cartridge B Active</span>
+                        <span class="text-[0.8rem] font-bold text-[#8c9b96] uppercase tracking-wider block">Cartridge B Active</span>
                         <strong id="slot-b-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight">Select Component...</strong>
                         <span id="slot-b-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block">00 KB | NROM | NONE</span>
                     </div>
@@ -119,11 +128,11 @@
                             <span>Empty Bank</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 bg-[#df3337] rounded-[2px]"></div>
+                            <div class="w-3 h-3 bg-[#ce0e00] rounded-[2px]"></div>
                             <span>Cartridge A Only</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 bg-[#00b2c7] rounded-[2px]"></div>
+                            <div class="w-3 h-3 bg-[#8c9b96] rounded-[2px]"></div>
                             <span>Cartridge B Only</span>
                         </div>
                         <div class="flex items-center gap-2">
@@ -181,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearBadgeText("Cartridge A");
                 if (statusBadge) {
                     statusBadge.textContent = "Cartridge A";
-                    statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#df3337] tracking-wider uppercase slot-status-badge";
+                    statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#ce0e00] tracking-wider uppercase slot-status-badge";
                 }
             } else {
                 sizeB = size;
@@ -189,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearBadgeText("Cartridge B");
                 if (statusBadge) {
                     statusBadge.textContent = "Cartridge B";
-                    statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#00b2c7] tracking-wider uppercase slot-status-badge";
+                    statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#8c9b96] tracking-wider uppercase slot-status-badge";
                 }
             }
 
@@ -276,17 +285,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         gridNodes.forEach((node) => {
             const currentKb = parseInt(node.getAttribute("data-index")) + 1;
-            node.removeAttribute("style");
             node.className = "aspect-square rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node";
 
             if (currentKb <= sizeA && currentKb <= sizeB) {
-                node.className = "aspect-square rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node bg-[#ef4444]";
+                node.style.backgroundColor = "#ef4444";
             } else if (currentKb <= sizeA) {
-                node.className = "aspect-square rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node bg-[#df3337]";
+                node.style.backgroundColor = "#ce0e00";
             } else if (currentKb <= sizeB) {
-                node.className = "aspect-square rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node bg-[#00b2c7]";
+                node.style.backgroundColor = "#8c9b96";
             } else {
-                node.className = "aspect-square rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node bg-[#111823]";
+                node.style.backgroundColor = "#111823";
             }
         });
     }
