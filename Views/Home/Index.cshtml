@@ -27,9 +27,30 @@
     #nes-matrix-wrapper strong {
         font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     }
+    #nes-matrix-wrapper .select-engine-container {
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+    }
+    #nes-matrix-wrapper .select-engine-container::after {
+        content: "\25BC" !important;
+        font-size: 0.7rem !important;
+        color: #a0aec0 !important;
+        position: absolute !important;
+        right: 0.95rem !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        pointer-events: none !important;
+    }
+    #matrix-sort-dropdown {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        padding-right: 3rem !important;
+    }
 </style>
 
-<div id="nes-matrix-wrapper" class="w-full relative">
+<div id="nes-matrix-wrapper" class="w-full relative pb-12">
     <div class="mb-10 text-left flex flex-col gap-0 w-full pt-4">
         <span class="portfolio-tag-line block mb-0">02 / Systems Insight</span>
         <h1 class="portfolio-main-title m-0 pt-1">
@@ -38,7 +59,7 @@
         <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85 pt-4">
             Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
         </p>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85 pt-3">
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85" style="margin-top: 1.5rem !important;">
             Select two games from the list to see how <span class="text-[#ce0e00] font-semibold">CARTRIDGE A</span> and <span class="text-[#8c9b96] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
         </p>
     </div>
@@ -52,17 +73,19 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-12">
         <div class="col-span-1 flex flex-col h-full">
-            <div class="bg-[#111823] p-4 rounded-[12px] border border-[#1f2937] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex items-center justify-between gap-4 mb-4 flex-shrink-0">
-                <div class="flex-grow">
+            <div class="bg-[#111823] p-4 rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex items-center justify-between gap-4 mb-4 flex-shrink-0">
+                <div class="flex-grow text-left">
                     <span class="text-[0.8rem] font-bold text-[#a0aec0] uppercase tracking-wider block mb-1">Bus Matrix Sorting Engine</span>
-                    <select id="matrix-sort-dropdown" class="bg-[#090d16] border border-[#1f2937] text-white text-[0.95rem] rounded-[6px] p-2 w-full outline-none focus:border-[#00e5ff] cursor-pointer">
-                        <option value="date-oldest">Release Date (Oldest)</option>
-                        <option value="date-newest">Release Date (Newest)</option>
-                        <option value="alpha-asc">Alphabetical (A-Z)</option>
-                        <option value="size-desc">Size (Largest First)</option>
-                    </select>
+                    <div class="select-engine-container">
+                        <select id="matrix-sort-dropdown" class="bg-[#090d16] text-white text-[0.95rem] rounded-[6px] p-2 w-full outline-none focus:border-[#00e5ff] cursor-pointer" style="border: none !important;">
+                            <option value="date-oldest">Release Date (Oldest)</option>
+                            <option value="date-newest">Release Date (Newest)</option>
+                            <option value="alpha-asc">Alphabetical (A-Z)</option>
+                            <option value="size-desc">Size (Largest First)</option>
+                        </select>
+                    </div>
                 </div>
-                <button type="button" id="reset-sorting" class="bg-transparent border border-[#1f2937] text-[#a0aec0] font-medium text-[0.85rem] rounded-[6px] px-3 py-2 mt-5 hover:bg-[#161f2d] hover:text-white transition-all duration-200">Reset</button>
+                <button type="button" id="reset-sorting" class="bg-transparent text-[#a0aec0] font-medium text-[0.85rem] rounded-[6px] px-3 py-2 mt-5 hover:bg-[#161f2d] hover:text-white transition-all duration-200" style="border: none !important;">Reset</button>
             </div>
             <div class="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pr-1 portfolio-scrollbar" id="game-selection-list">
                 @foreach (var item in Model)
@@ -85,8 +108,8 @@
                         rawDateKey = splitParts[0];
                     }
 
-                    <div class="bg-[#111823] border border-[#1f2937] rounded-[10px] p-4 flex items-center gap-4 transition-colors duration-250 ease-out hover:bg-[#161f2d] cursor-pointer shadow-md group game-comparison-card flex-shrink-0" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate" data-datekey="@rawDateKey">
-                        <div class="flex-shrink-0 w-14 h-16 bg-black/40 overflow-hidden rounded-[4px] border border-[#1f2937]">
+                    <div class="bg-[#111823] rounded-[10px] p-4 flex items-center gap-4 transition-colors duration-250 ease-out hover:bg-[#161f2d] cursor-pointer shadow-md group game-comparison-card flex-shrink-0" style="border: none !important;" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate" data-datekey="@rawDateKey">
+                        <div class="flex-shrink-0 w-14 h-16 bg-black/40 overflow-hidden rounded-[4px]" style="border: none !important;">
                             @if (!string.IsNullOrEmpty(imageUrl))
                             {
                                 <img src="@imageUrl" alt="" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
@@ -97,17 +120,18 @@
                             <span class="text-[#a0aec0] text-[0.85rem] font-mono block pt-1">@item.MapperChip | @displayDate</span>
                         </div>
                         <div class="flex-shrink-0 text-right flex flex-col gap-1 items-end">
-                            <span class="bg-black/40 border border-[#1f2937] px-2 py-0.5 rounded-[4px] font-mono text-[0.85rem] font-bold text-white">@item.SizeInKb K</span>
+                            <span class="bg-black/40 px-2 py-0.5 rounded-[4px] font-mono text-[0.85rem] font-bold text-white" style="border: none !important;">@item.SizeInKb K</span>
                             <span class="text-[0.75rem] font-mono font-bold text-[#475569] tracking-wider uppercase slot-status-badge">Idle</span>
                         </div>
                     </div>
                 }
             </div>
         </div>
+
         <div class="col-span-1 md:col-span-2 flex flex-col gap-6 h-full justify-between">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
-                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
-                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] border border-[#1f2937] flex-shrink-0">
+                <div class="bg-[#111823] p-5 rounded-[16px] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center" style="border-top: none !important; border-right: none !important; border-bottom: none !important;">
+                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] flex-shrink-0" style="border: none !important;">
                         <img id="slot-a-img" src="" alt="" class="w-full h-full object-cover hidden" />
                         <div id="slot-a-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ A ]</div>
                     </div>
@@ -118,8 +142,8 @@
                     </div>
                 </div>
 
-                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
-                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] border border-[#1f2937] flex-shrink-0">
+                <div class="bg-[#111823] p-5 rounded-[16px] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center" style="border-top: none !important; border-right: none !important; border-bottom: none !important;">
+                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] flex-shrink-0" style="border: none !important;">
                         <img id="slot-b-img" src="" alt="" class="w-full h-full object-cover hidden" />
                         <div id="slot-b-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ B ]</div>
                     </div>
@@ -131,7 +155,7 @@
                 </div>
             </div>
 
-            <div id="grid-parent-card" class="bg-[#111823] p-6 rounded-[16px] border border-[#1f2937] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-4 flex-grow justify-between">
+            <div id="grid-parent-card" class="bg-[#111823] p-6 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-4 flex-grow justify-between" style="border: none !important;">
                 <div class="flex justify-between items-center border-b border-[#1a2333] pb-4 flex-shrink-0">
                     <h3 class="m-0 text-[1.25rem] font-bold text-white tracking-tight">Visual Size Comparison (In KB)</h3>
                     <div id="comparison-delta-panel" class="text-right font-mono font-bold text-[#a0aec0] text-[0.95rem]">
@@ -139,17 +163,17 @@
                     </div>
                 </div>
                 
-                <div class="bg-[#090d16] border border-[#1f2937] rounded-[12px] p-6 flex flex-col gap-4 box-border flex-grow justify-between">
+                <div class="bg-[#090d16] rounded-[12px] p-6 flex flex-col gap-4 box-border flex-grow justify-between" style="border: none !important;">
                     <div id="allocation-matrix-grid" class="grid grid-cols-16 sm:grid-cols-32 gap-1.5 w-full justify-center p-1">
                         @for (int i = 0; i < 768; i++)
                         {
-                            <div class="aspect-square bg-[#111823] rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node" data-index="@i" title="Memory Block @(i + 1) (1 KB)"></div>
+                            <div class="aspect-square bg-[#111823] rounded-[2px] transition-all duration-150 memory-block-node" data-index="@i" title="Memory Block @(i + 1) (1 KB)" style="border: none !important;"></div>
                         }
                     </div>
                     
                     <div class="flex items-center justify-start gap-6 border-t border-[#1a2333] pt-4 font-mono text-sm text-[#a0aec0] flex-wrap flex-shrink-0">
                         <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 bg-[#111823] rounded-[2px] border border-[#1f2937]/30"></div>
+                            <div class="w-3 h-3 bg-[#111823] rounded-[2px]"></div>
                             <span>Empty Bank</span>
                         </div>
                         <div class="flex items-center gap-2">
@@ -310,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         gridNodes.forEach((node) => {
             const currentKb = parseInt(node.getAttribute("data-index")) + 1;
-            node.className = "aspect-square rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node";
+            node.className = "aspect-square rounded-[2px] transition-all duration-150 memory-block-node";
 
             if (currentKb <= sizeA && currentKb <= sizeB) {
                 node.style.backgroundColor = "#ef4444";
