@@ -1,80 +1,223 @@
-﻿@model IEnumerable<IGDB.Models.Game>
+﻿@model IEnumerable<NES_Box_Art.Models.TimelineGameViewModel>
 @using IGDB
 
 @{
-    ViewData["Title"] = "NES Box Art Gallery";
+    ViewData["Title"] = "Memory Allocation Matrix";
 }
 
-<div class="text-center my-4">
-    <h1 class="display-4 font-weight-bold text-danger">NES Box Art Gallery</h1>
-    <p class="lead">Displaying vintage Nintendo Entertainment System covers directly from the IGDB API.</p>
-</div>
-
-<!-- --- NEW SEARCH BAR FORM --- -->
-<div class="row justify-content-center mb-5">
-    <div class="col-md-6">
-        <form asp-action="Index" method="get" class="d-flex shadow-sm rounded">
-            <input type="text" 
-                   name="searchTerm" 
-                   class="form-control form-control-lg border-danger" 
-                   placeholder="Search for an NES game (e.g., Mario, Zelda, Metroid)..." 
-                   value="@ViewBag.SearchTerm" />
-            <button type="submit" class="btn btn-danger btn-lg px-4">Search</button>
-        </form>
-        @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
-        {
-            <div class="text-center mt-2">
-                <a asp-action="Index" class="text-secondary text-decoration-none small">Clear Search Results</a>
-            </div>
-        }
+<div class="w-full relative">
+    <div class="mb-10 text-center">
+        <h1 class="text-[2.5rem] sm:text-[3.5rem] text-white tracking-tight font-semibold leading-tight">
+            NES System Bus &amp; Memory Allocation Matrix
+        </h1>
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-wide max-w-[800px] mx-auto pt-4">
+            Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
+        </p>
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-wide pt-2">
+            Select two games from the list to see how <span class="text-[#df3337] font-semibold">CARTRIDGE A</span> and <span class="text-[#00e5ff] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
+        </p>
     </div>
-</div>
-<!-- -------------------------- -->
 
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @ViewBag.Error
-    </div>
-}
-
-@if (!Model.Any())
-{
-    <div class="text-center my-5">
-        <h4 class="text-muted">No NES box art found matching "@ViewBag.SearchTerm".</h4>
-    </div>
-}
-
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
-    @foreach (var game in Model)
+    @if (ViewBag.Error != null)
     {
-        // 1. Check if the cover relationship exists
-        // 2. Extract the actual Image ID string from the wrapper value
-        var imageId = game.Cover?.Value?.ImageId;
+        <div class="bg-red-900/20 border border-red-500/40 p-4 rounded-[8px] text-red-400 mb-6 font-mono text-sm" role="alert">
+            @ViewBag.Error
+        </div>
+    }
 
-        if (!string.IsNullOrEmpty(imageId))
-        {
-            // Use the SDK's built-in ImageHelper to generate a secure, high-res URL
-            var imageUrl = IGDB.ImageHelper.GetImageUrl(
-                imageId: imageId, 
-                size: ImageSize.CoverBig, 
-                retina: false
-            );
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mt-12">
+        <div class="col-span-1 flex flex-col gap-4">
+            <div class="bg-[#111823] p-4 rounded-[12px] border border-[#1f2937] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex justify-between items-center">
+                <div>
+                    <span class="text-[0.8rem] font-bold text-[#a0aec0] uppercase tracking-wider block">Bus Matrix Sorting Engine</span>
+                    <strong class="text-[1.15rem] text-white font-semibold">Release Date (Oldest)</strong>
+                </div>
+                <button type="button" id="reset-sorting" class="bg-transparent border border-[#1f2937] text-[#a0aec0] font-medium text-[0.85rem] rounded-[6px] px-3 py-1.5 hover:bg-[#161f2d] hover:text-white transition-all duration-200">Reset</button>
+            </div>
 
-            // Ensure the URL has the correct security protocol prepended
-            if (imageUrl.StartsWith("//"))
-            {
-                imageUrl = "https:" + imageUrl;
-            }
+            <div class="flex flex-col gap-3 max-h-[560px] overflow-y-auto pr-1" id="game-selection-list">
+                @foreach (var item in Model)
+                {
+                    var imageId = item.IgdbData.Cover?.Value?.ImageId;
+                    var imageUrl = !string.IsNullOrEmpty(imageId) 
+                        ? IGDB.ImageHelper.GetImageUrl(imageId, ImageSize.CoverBig, false).Replace("//", "https://") 
+                        : "";
 
-            <div class="col">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="@imageUrl" class="card-img-top p-2" alt="@game.Name Box Art" style="object-fit: contain; max-height: 250px;">
-                    <div class="card-body d-flex flex-column justify-content-end bg-light">
-                        <h6 class="card-title text-center text-dark m-0">@game.Name</h6>
+                    var splitParts = item.ReleaseYear.Split('|');
+                    var displayDate = splitParts.Length > 1 ? splitParts[1] : item.ReleaseYear;
+
+                    <div class="bg-[#111823] border border-[#1f2937] rounded-[10px] p-4 flex items-center gap-4 transition-colors duration-250 ease-out hover:bg-[#161f2d] cursor-pointer shadow-md group" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate">
+                        <div class="flex-shrink-0 w-14 h-16 bg-black/40 overflow-hidden rounded-[4px] border border-[#1f2937]">
+                            @if (!string.IsNullOrEmpty(imageUrl))
+                            {
+                                <img src="@imageUrl" alt="" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                            }
+                        </div>
+                        <div class="flex-grow text-left">
+                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight">@item.IgdbData.Name</h4>
+                            <span class="text-[#a0aec0] text-[0.85rem] font-mono block pt-1">@item.MapperChip | @displayDate</span>
+                        </div>
+                        <div class="flex-shrink-0 text-right flex flex-col gap-1.5 items-end">
+                            <span class="bg-black/40 border border-[#1f2937] px-2 py-0.5 rounded-[4px] font-mono text-[0.85rem] font-bold text-white">@item.SizeInKb K</span>
+                            <div class="flex gap-1">
+                                <button type="button" class="select-cart-a text-[0.75rem] font-sans font-bold bg-[#1f2937] border-0 rounded-[4px] px-2 py-0.5 text-white hover:bg-[#df3337] transition-all">A</button>
+                                <button type="button" class="select-cart-b text-[0.75rem] font-sans font-bold bg-[#1f2937] border-0 rounded-[4px] px-2 py-0.5 text-white hover:bg-[#00e5ff] hover:text-[#090d16] transition-all">B</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+        <div class="col-span-1 md:col-span-2 flex flex-col gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#df3337] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
+                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] border border-[#1f2937] flex-shrink-0">
+                        <img id="slot-a-img" src="" alt="" class="w-full h-full object-cover hidden" />
+                        <div id="slot-a-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ A ]</div>
+                    </div>
+                    <div class="text-left flex flex-col gap-1">
+                        <span class="text-[0.8rem] font-bold text-[#df3337] uppercase tracking-wider block">Cartridge A Active</span>
+                        <strong id="slot-a-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight">Select Component...</strong>
+                        <span id="slot-a-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block">00 KB | NROM | NONE</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#111823] p-5 rounded-[16px] border border-[#1f2937] border-l-[4px] border-l-[#00e5ff] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center">
+                    <div class="w-16 h-20 bg-black/40 overflow-hidden rounded-[6px] border border-[#1f2937] flex-shrink-0">
+                        <img id="slot-b-img" src="" alt="" class="w-full h-full object-cover hidden" />
+                        <div id="slot-b-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ B ]</div>
+                    </div>
+                    <div class="text-left flex flex-col gap-1">
+                        <span class="text-[0.8rem] font-bold text-[#00e5ff] uppercase tracking-wider block">Cartridge B Active</span>
+                        <strong id="slot-b-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight">Select Component...</strong>
+                        <span id="slot-b-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block">00 KB | NROM | NONE</span>
                     </div>
                 </div>
             </div>
+
+            <div class="bg-[#111823] p-6 rounded-[16px] border border-[#1f2937] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-4">
+                <div class="flex justify-between items-center border-b border-[#1a2333] pb-4">
+                    <h3 class="m-0 text-[1.25rem] font-bold text-white tracking-tight">Visual Size Comparison (In KB)</h3>
+                    <div id="comparison-delta-panel" class="text-right font-mono font-bold text-[#a0aec0] text-[0.95rem]">
+                        Delta Resolution Gap: <span class="text-white font-extrabold" id="delta-span">0 KB</span>
+                    </div>
+                </div>
+                
+                <div class="bg-[#090d16] border border-[#1f2937] rounded-[12px] p-6 min-h-[260px] flex items-center justify-center relative box-border">
+                    <div id="allocation-matrix-grid" class="grid grid-cols-16 sm:grid-cols-32 gap-1.5 w-full justify-center max-h-[320px] overflow-y-auto p-1">
+                        @for (int i = 0; i < 768; i++)
+                        {
+                            <div class="aspect-square bg-[#111823] rounded-[2px] border border-[#1f2937]/30 transition-all duration-150 memory-block-node" data-index="@i" title="Memory Block @(i + 1) (1 KB)"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    let sizeA = 0;
+    let sizeB = 0;
+
+    const deltaSpan = document.getElementById("delta-span");
+    const gridNodes = document.querySelectorAll(".memory-block-node");
+
+    const slotA = {
+        name: document.getElementById("slot-a-name"),
+        meta: document.getElementById("slot-a-meta"),
+        img: document.getElementById("slot-a-img"),
+        fallback: document.getElementById("slot-a-fallback")
+    };
+
+    const slotB = {
+        name: document.getElementById("slot-b-name"),
+        meta: document.getElementById("slot-b-meta"),
+        img: document.getElementById("slot-b-img"),
+        fallback: document.getElementById("slot-b-fallback")
+    };
+
+    document.addEventListener("click", (e) => {
+        const btnA = e.target.closest(".select-cart-a");
+        const btnB = e.target.closest(".select-cart-b");
+        
+        if (!btnA && !btnB) return;
+
+        const row = e.target.closest("[data-size]");
+        if (!row) return;
+
+        const size = parseInt(row.getAttribute("data-size")) || 0;
+        const name = row.getAttribute("data-name") || "";
+        const chip = row.getAttribute("data-chip") || "";
+        const date = row.getAttribute("data-date") || "";
+        const imgSrc = row.querySelector("img") ? row.querySelector("img").getAttribute("src") : "";
+
+        if (btnA) {
+            sizeA = size;
+            updateSlot(slotA, name, size, chip, date, imgSrc);
+        } else if (btnB) {
+            sizeB = size;
+            updateSlot(slotB, name, size, chip, date, imgSrc);
+        }
+
+        updateMemoryAllocationMatrix();
+    });
+
+    function updateSlot(slot, name, size, chip, date, imgSrc) {
+        if (!slot.name || !slot.meta) return;
+        slot.name.textContent = name;
+        slot.meta.textContent = `${size} KB | ${chip} | ${date}`;
+        if (imgSrc && slot.img && slot.fallback) {
+            slot.img.setAttribute("src", imgSrc);
+            slot.img.classList.remove("hidden");
+            slot.fallback.classList.add("hidden");
+        } else if (slot.img && slot.fallback) {
+            slot.img.classList.add("hidden");
+            slot.fallback.classList.remove("hidden");
         }
     }
-</div>
+
+    const resetBtn = document.getElementById("reset-sorting");
+    if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+            sizeA = 0;
+            sizeB = 0;
+            if (slotA.name) slotA.name.textContent = "Select Component...";
+            if (slotA.meta) slotA.meta.textContent = "00 KB | NROM | NONE";
+            if (slotA.img) slotA.img.classList.add("hidden");
+            if (slotA.fallback) slotA.fallback.classList.remove("hidden");
+            
+            if (slotB.name) slotB.name.textContent = "Select Component...";
+            if (slotB.meta) slotB.meta.textContent = "00 KB | NROM | NONE";
+            if (slotB.img) slotB.img.classList.add("hidden");
+            if (slotB.fallback) slotB.fallback.classList.remove("hidden");
+            
+            updateMemoryAllocationMatrix();
+        });
+    }
+
+    function updateMemoryAllocationMatrix() {
+        const delta = Math.abs(sizeA - sizeB);
+        if (deltaSpan) {
+            deltaSpan.textContent = `${delta} KB`;
+        }
+
+        gridNodes.forEach((node, idx) => {
+            const currentKb = idx + 1;
+            node.className = "aspect-square rounded-[2px] border border-gray-700/30 transition-all duration-150 memory-block-node";
+
+            if (currentKb <= sizeA && currentKb <= sizeB) {
+                node.style.backgroundColor = "#ef4444";
+            } else if (currentKb <= sizeA) {
+                node.style.backgroundColor = "#df3337";
+            } else if (currentKb <= sizeB) {
+                node.style.backgroundColor = "#00e5ff";
+            } else {
+                node.style.backgroundColor = "#111823";
+            }
+        });
+    }
+});
+</script>

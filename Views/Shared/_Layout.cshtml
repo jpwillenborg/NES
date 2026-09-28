@@ -1,57 +1,55 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NES_Box_Art</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    @* <link rel="stylesheet" href="~/NES_Box_Art.styles.css" asp-append-version="true" /> *@
+    <title>@ViewData["Title"] - NES Box Art Analytics</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
 </head>
-<body>
+<body class="min-h-screen w-full bg-[#090d16] text-white font-sans antialiased flex flex-col justify-between">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NES_Box_Art</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home" asp-action="Timeline">💾 Hardware Timeline</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home" asp-action="Grid">🧱 Allocation Grid</a>
-                        </li>
-                    </ul>
+        <nav class="fixed top-0 left-0 w-full z-50 py-[1.25rem] bg-[#06090f] transition-colors duration-200 ease-in-out">
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6">
+                <div class="flex items-center justify-between w-full m-0">
+                    <div class="w-1/2 md:w-1/4 text-left">
+                        <a href="http://localhost:5173/#top" class="text-[1.75rem] font-bold text-white no-underline tracking-tight inline-block lowercase">
+                            john<span class="text-[#00e5ff]">.</span>willenborg
+                        </a>
+                    </div>
+                    <div class="hidden md:flex md:w-1/2 justify-center items-center">
+                        <div class="flex gap-[42px]">
+                            <a href="http://localhost:5173/#top" class="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem]">Overview</a>
+                            <a href="http://localhost:5173/#stacks" class="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem]">Tech Stack</a>
+                            <a href="http://localhost:5173/#apps" class="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem]">Web Apps</a>
+                            <a href="http://localhost:5173/#gamedev" class="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem]">Game Dev</a>
+                            <a href="http://localhost:5173/#modeling" class="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem]">3D Modeling</a>
+                        </div>
+                    </div>
+                    <div class="w-1/2 md:w-1/4 text-right flex justify-end items-center">
+                        <a href="http://localhost:5173/#contact" class="hidden md:block bg-[#00e5ff] text-[#090d16] font-medium text-[0.85rem] tracking-[0.01em] rounded-[6px] px-[1.25rem] py-[0.45rem] shadow-[0_0_16px_4px_rgba(0,0,0,0.35)] no-underline hover:bg-[#66efff] transition-all duration-200">
+                            Let's Connect
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="pt-[8.5rem] pb-[3rem] px-4 sm:px-6 w-full box-border">
+        <main role="main" class="max-w-[1024px] mx-auto w-full box-border font-poppins">
             @RenderBody()
         </main>
     </div>
 
-    @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - NES_Box_Art - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="w-full border-t border-[#1a2333]/70 bg-[#090d16] py-[0.75rem] px-4 md:px-0 mt-auto leading-normal">
+        <div class="max-w-[1024px] mx-auto flex flex-col sm:flex-row justify-between gap-2 font-mono text-[#a0aec0]/65 text-[1.05rem] tracking-[0.25px]" style="font-family: 'Geist Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+            <div>Made with care © 2026 John Willenborg</div>
+            <div>Built using React and standard utility classes.</div>
         </div>
-    </footer> *@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </footer>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

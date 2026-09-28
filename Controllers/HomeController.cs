@@ -17,8 +17,6 @@ namespace NES_Box_Art.Controllers
             _config = config;
         }
 
-
-        // Change the attribute to look for the root domain, and rename the method to Index
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {
@@ -43,11 +41,10 @@ namespace NES_Box_Art.Controllers
             var localIgdbClient = new IGDBClient(clientId, clientSecret);
             string gameNamesQuery = string.Join(", ", gameList.Select(name => $"\"{name}\""));
             
-            // EXTENDED API QUERY: Explicitly pulls deep release date properties for month/day parsing
             string query = "fields name, cover.*, first_release_date, release_dates.*; " +
                            $"where name = ({gameNamesQuery}) & platforms = (18) & cover != null; " +
                            "limit 50;";
-                        try
+            try
             {
                 var igdbGames = await localIgdbClient.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query);
                 var processedGames = igdbGames.ToList();
@@ -62,11 +59,8 @@ namespace NES_Box_Art.Controllers
 
                 var gridData = processedGames.Select(g => {
                     string gameName = g.Name ?? "";
-                    
-                    // Establish a standardized baseline DateTime object
                     DateTime targetDate = g.FirstReleaseDate.HasValue ? g.FirstReleaseDate.Value.UtcDateTime : new DateTime(1980, 1, 1);
 
-                    // Standard North American API Region Filter Block
                     if (g.ReleaseDates?.Values != null && g.ReleaseDates.Values.Any())
                     {
                         var naRelease = g.ReleaseDates.Values.FirstOrDefault(r => 
@@ -82,78 +76,34 @@ namespace NES_Box_Art.Controllers
                         }
                     }
 
-
-                                        // =========================================================================
-                    // MASTER HISTORICAL HARDENING: Strict North American NES Launch Overrides
-                    // =========================================================================
                     string lowerName = gameName.ToLower().Trim();
 
                     if (lowerName.Equals("super mario bros.") || lowerName.Equals("excitebike"))
                     {
-                        targetDate = new DateTime(1985, 10, 18); // NA NES Launch Window Baseline
+                        targetDate = new DateTime(1985, 10, 18);
                     }
                     else if (lowerName.Contains("legend of zelda") && !lowerName.Contains("zelda ii"))
                     {
-                        targetDate = new DateTime(1987, 7, 1);  // NA July 1987 (Bypasses Japan 1986)
+                        targetDate = new DateTime(1987, 7, 1);
                     }
                     else if (lowerName.Contains("zelda ii") || lowerName.Contains("adventure of link"))
                     {
-                        targetDate = new DateTime(1988, 12, 1); // NA December 1988 (Bypasses Japan 1987)
+                        targetDate = new DateTime(1988, 12, 1);
                     }
-                    else if (lowerName.Equals("metroid"))
-                    {
-                        targetDate = new DateTime(1987, 8, 1);  // NA August 1987 (Bypasses Japan 1986)
-                    }
-                    else if (lowerName.Equals("castlevania"))
-                    {
-                        targetDate = new DateTime(1987, 5, 1);  // NA May 1987 (Bypasses Japan 1986)
-                    }
-                    else if (lowerName.Equals("kid icarus"))
-                    {
-                        targetDate = new DateTime(1987, 7, 1);  // NA July 1987 (Bypasses Japan 1986)
-                    }
-                    else if (lowerName.Equals("mega man"))
-                    {
-                        targetDate = new DateTime(1987, 12, 1); // NA December 1987 (Bypasses Japan 1986)
-                    }
-                    else if (lowerName.Contains("punch-out"))
-                    {
-                        targetDate = new DateTime(1987, 10, 1); // NA October 1987 Retail Release
-                    }
-                    else if (lowerName.Equals("ninja gaiden"))
-                    {
-                        targetDate = new DateTime(1989, 3, 1);  // NA March 1989 (Bypasses Japan 1988)
-                    }
-                    else if (lowerName.Contains("ghosts 'n goblins"))
-                    {
-                        targetDate = new DateTime(1986, 11, 1); // NA November 1986 Retail Release
-                    }
-                    else if (lowerName.Equals("rygar"))
-                    {
-                        targetDate = new DateTime(1987, 7, 1);  // NA July 1987 (Bypasses Japan 1987 early ports)
-                    }
-                    else if (lowerName.Equals("ice hockey"))
-                    {
-                        targetDate = new DateTime(1988, 3, 1);  // NA March 1988 (Bypasses Japan 1988 early month)
-                    }
-                    else if (lowerName.Equals("contra"))
-                    {
-                        targetDate = new DateTime(1988, 2, 1);  // NA February 1988 Launch Standard
-                    }
-                    else if (lowerName.Equals("rad racer"))
-                    {
-                        targetDate = new DateTime(1987, 10, 1); // NA October 1987 Launch Standard
-                    }
-                    else if (lowerName.Equals("tetris"))
-                    {
-                        targetDate = new DateTime(1989, 11, 1); // NA November 1989 Official Nintendo Version
-                    }
+                    else if (lowerName.Equals("metroid")) { targetDate = new DateTime(1987, 8, 1); }
+                    else if (lowerName.Equals("castlevania")) { targetDate = new DateTime(1987, 5, 1); }
+                    else if (lowerName.Equals("kid icarus")) { targetDate = new DateTime(1987, 7, 1); }
+                    else if (lowerName.Equals("mega man")) { targetDate = new DateTime(1987, 12, 1); }
+                    else if (lowerName.Contains("punch-out")) { targetDate = new DateTime(1987, 10, 1); }
+                    else if (lowerName.Equals("ninja gaiden")) { targetDate = new DateTime(1989, 3, 1); }
+                    else if (lowerName.Contains("ghosts 'n goblins")) { targetDate = new DateTime(1986, 11, 1); }
+                    else if (lowerName.Equals("rygar")) { targetDate = new DateTime(1987, 7, 1); }
+                    else if (lowerName.Equals("ice hockey")) { targetDate = new DateTime(1988, 3, 1); }
+                    else if (lowerName.Equals("contra")) { targetDate = new DateTime(1988, 2, 1); }
+                    else if (lowerName.Equals("rad racer")) { targetDate = new DateTime(1987, 10, 1); }
+                    else if (lowerName.Equals("tetris")) { targetDate = new DateTime(1989, 11, 1); }
 
-                    // Format cleanly to the standardized alphabetical key split template
                     string preciseDateString = targetDate.ToString("yyyy-MM") + "|" + targetDate.ToString("MMM yyyy").ToUpper();
-                    // =========================================================================
-                    // SYSTEM BANK DATA CALCULATIONS: Rom Footprints & Memory Mapper Mapping
-                    // =========================================================================
                     int sizeKb = 32; string chip = "NROM";
                     if (gameName.Equals("Super Mario Bros.", StringComparison.OrdinalIgnoreCase)) { sizeKb = 40; chip = "NROM"; }
                     else if (gameName.Contains("Castlevania", StringComparison.OrdinalIgnoreCase)) { sizeKb = 128; chip = "UNROM"; }
@@ -191,12 +141,12 @@ namespace NES_Box_Art.Controllers
                 .OrderBy(x => x.ReleaseYear)
                 .ToList();
 
-                return View("Grid", gridData); // <-- CRUCIAL: Change this line at the bottom of the method!
+                return View(gridData);
             }
             catch (Exception ex)
             {
                 ViewBag.Error = $"DATABASE ACCESS EXCEPTION DETECTED: {ex.Message}";
-                return View("Grid", new List<TimelineGameViewModel>()); // <-- CRUCIAL: Change this error line too!
+                return View(new List<TimelineGameViewModel>());
             }
         }
     }

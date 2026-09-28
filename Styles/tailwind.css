@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 640px) {
+  @layer utilities {
+    .grid-cols-32 {
+      grid-template-columns: repeat(32, minmax(0, 1fr));
+    }
+  }
+}
