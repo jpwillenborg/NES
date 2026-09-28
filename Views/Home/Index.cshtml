@@ -5,15 +5,40 @@
     ViewData["Title"] = "Memory Allocation Matrix";
 }
 
-<div class="w-full relative">
-    <div class="mb-10 text-center">
-        <h1 class="text-[2.5rem] sm:text-[3.5rem] text-white tracking-tight font-semibold leading-tight">
+<style>
+    #nes-matrix-wrapper .portfolio-tag-line {
+        font-family: 'Geist Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+        font-size: 1.1rem !important;
+        color: #00e5ff !important;
+        letter-spacing: 0.05em !important;
+        font-weight: 400 !important;
+    }
+    #nes-matrix-wrapper .portfolio-main-title {
+        font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-size: 2.1rem !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.01em !important;
+        color: #ffffff !important;
+        line-height: 1.2 !important;
+    }
+    #nes-matrix-wrapper p,
+    #nes-matrix-wrapper h3, 
+    #nes-matrix-wrapper h4, 
+    #nes-matrix-wrapper strong {
+        font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    }
+</style>
+
+<div id="nes-matrix-wrapper" class="w-full relative">
+    <div class="mb-10 text-left flex flex-col gap-0 w-full pt-4">
+        <span class="portfolio-tag-line block mb-0">02 / Systems Insight</span>
+        <h1 class="portfolio-main-title m-0 pt-1">
             NES System Bus &amp; Memory Allocation Matrix
         </h1>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-wide max-w-[800px] mx-auto pt-4">
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85 pt-4">
             Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
         </p>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-wide pt-2">
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85 pt-3">
             Select two games from the list to see how <span class="text-[#ce0e00] font-semibold">CARTRIDGE A</span> and <span class="text-[#8c9b96] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
         </p>
     </div>
