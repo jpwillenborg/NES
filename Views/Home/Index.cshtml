@@ -40,22 +40,22 @@
         grid-template-columns: repeat(24, minmax(0, 1fr)) !important;
     }
     .memory-block-node.is-overlapping {
-        background-color: #ce0e00 !important;
+        background-color: #00e5ff !important;
         box-shadow: inset 0 0 0 3px #8c9b96 !important;
     }
 </style>
 
-<div id="nes-matrix-wrapper" class="w-full relative pb-12">
-    <div class="mb-10 text-left flex flex-col gap-0 w-full pt-4">
-        <span class="portfolio-tag-line block mb-0">02 / Systems Insight</span>
-        <h1 class="portfolio-main-title m-0 pt-1">
+<div id="nes-matrix-wrapper" class="w-full relative pb-16">
+    <div class="mb-14 text-left flex flex-col gap-3 w-full pt-2">
+        <span class="portfolio-tag-line block mb-1">02 / Systems Insight</span>
+        <h1 class="portfolio-main-title m-0">
             NES System Bus &amp; Memory Allocation Matrix
         </h1>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85 pt-4">
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.7] tracking-normal opacity-90 pt-3 max-w-[900px]">
             Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
         </p>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.65] tracking-normal opacity-85" style="margin-top: 1.5rem !important;">
-            Select two games from the list to see how <span class="text-[#ce0e00] font-semibold">CARTRIDGE A</span> and <span class="text-[#8c9b96] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
+        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.7] tracking-normal opacity-90 pt-5 max-w-[900px]">
+            Select two games from the list to see how <span class="text-[#00e5ff] font-semibold">CARTRIDGE A</span> and <span class="text-[#8c9b96] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
         </p>
     </div>
 
@@ -64,23 +64,21 @@
         <div class="bg-red-900/20 border border-red-500/40 p-4 rounded-[8px] text-red-400 mb-6 font-mono text-sm" role="alert">
             @ViewBag.Error
         </div>
-    }
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-12">
+    }<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-10">
         <div class="col-span-1 flex flex-col h-full">
-            <div class="bg-[#111823] p-4 rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-2 mb-4 flex-shrink-0">
-                <span class="text-[0.8rem] font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Bus Matrix Sorting Engine</span>
-                <div style="display: grid !important; grid-template-columns: 1fr auto !important; gap: 12px !important; width: 100% !important; align-items: center !important;">
+            <div class="bg-[#111823] p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-3 mb-4 flex-shrink-0">
+                <span class="text-[0.8rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Bus Matrix Sorting Engine</span>
+                <div style="display: grid !important; grid-template-columns: 1fr auto !important; gap: 10px !important; width: 100% !important; align-items: center !important;">
                     <div style="position: relative !important; width: 100% !important;">
-                        <select id="matrix-sort-dropdown" class="bg-[#090d16] text-white text-[0.95rem] rounded-[6px] cursor-pointer block" style="height: 42px !important; border: none !important; width: 100% !important; padding-left: 16px !important; padding-right: 36px !important; box-sizing: border-box !important;">
+                        <select id="matrix-sort-dropdown" class="bg-[#090d16] text-white text-[0.9rem] rounded-[8px] cursor-pointer block border border-[#1a2333] hover:border-[#00e5ff]/40 transition-colors" style="height: 40px !important; width: 100% !important; padding-left: 14px !important; padding-right: 32px !important; box-sizing: border-box !important;">
                             <option value="date-oldest">Release Date (Oldest)</option>
                             <option value="date-newest">Release Date (Newest)</option>
                             <option value="alpha-asc">Alphabetical (A-Z)</option>
                             <option value="size-desc">Size (Largest First)</option>
                         </select>
-                        <div style="position: absolute !important; right: 14px !important; top: 50% !important; transform: translateY(-50%) !important; pointer-events: none !important; font-size: 0.7rem !important; color: #a0aec0 !important;">&#9660;</div>
+                        <div style="position: absolute !important; right: 12px !important; top: 50% !important; transform: translateY(-50%) !important; pointer-events: none !important; font-size: 0.7rem !important; color: #a0aec0 !important;">&#9660;</div>
                     </div>
-                    <button type="button" id="reset-sorting" class="bg-[#090d16] text-[#a0aec0] font-medium text-[0.85rem] rounded-[6px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white active:bg-[#1f293d] active:scale-95 transition-all duration-150 transform flex-shrink-0" style="height: 42px !important; border: none !important;">Reset</button>
+                    <button type="button" id="reset-sorting" class="bg-[#090d16] border border-[#1a2333] text-[#a0aec0] font-medium text-[0.85rem] rounded-[8px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white hover:border-[#00e5ff]/40 active:scale-95 transition-all duration-150 transform flex-shrink-0" style="height: 40px !important;">Reset</button>
                 </div>
             </div>
             <div class="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pl-0 pr-3 portfolio-scrollbar" id="game-selection-list">
@@ -126,32 +124,32 @@
 
         <div class="col-span-1 md:col-span-2 flex flex-col gap-6 h-full justify-between">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
-                <div class="bg-[#111823] p-4 rounded-[16px] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="border-top: none !important; border-right: none !important; border-bottom: none !important; height: 120px !important;">
-                    <div class="w-16 h-fit max-h-[88px] self-center rounded-[3px] overflow-hidden flex-shrink-0 flex items-center justify-center" style="border: none !important;">
+                <div class="bg-[#111823] p-5 rounded-[16px] border-l-[4px] border-l-[#00e5ff] border-t border-r border-b border-[#1a2333]/50 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="height: 115px !important;">
+                    <div class="w-16 h-fit max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[#090d16]/50">
                         <div id="slot-a-fallback" class="w-full py-6 flex items-center justify-center text-[#a0aec0] text-[0.85rem] font-bold font-mono">[ A ]</div>
                         <img id="slot-a-img" src="" alt="" class="max-w-full max-h-full object-contain hidden shadow-none" style="filter: none !important;" />
                     </div>
                     <div class="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
-                        <span class="text-[0.8rem] font-bold text-[#ce0e00] uppercase tracking-wider block leading-none">Cartridge A</span>
-                        <strong id="slot-a-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight truncate block pt-1">Select A Title</strong>
-                        <span id="slot-a-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block truncate leading-none pt-1">00 KB | NROM | NONE</span>
+                        <span class="text-[0.8rem] font-mono font-bold text-[#00e5ff] uppercase tracking-wider block leading-none">Cartridge A</span>
+                        <strong id="slot-a-name" class="text-white text-[1.15rem] tracking-tight font-bold leading-tight truncate block pt-1.5">Select A Title</strong>
+                        <span id="slot-a-meta" class="text-[#a0aec0] font-mono text-[0.85rem] block truncate leading-none pt-1">00 KB | NROM | NONE</span>
                     </div>
                 </div>
 
-                <div class="bg-[#111823] p-4 rounded-[16px] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="border-top: none !important; border-right: none !important; border-bottom: none !important; height: 120px !important;">
-                    <div class="w-16 h-fit max-h-[88px] self-center rounded-[3px] overflow-hidden flex-shrink-0 flex items-center justify-center" style="border: none !important;">
+                <div class="bg-[#111823] p-5 rounded-[16px] border-l-[4px] border-l-[#8c9b96] border-t border-r border-b border-[#1a2333]/50 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="height: 115px !important;">
+                    <div class="w-16 h-fit max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[#090d16]/50">
                         <div id="slot-b-fallback" class="w-full py-6 flex items-center justify-center text-[#a0aec0] text-[0.85rem] font-bold font-mono">[ B ]</div>
                         <img id="slot-b-img" src="" alt="" class="max-w-full max-h-full object-contain hidden shadow-none" style="filter: none !important;" />
                     </div>
                     <div class="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
-                        <span class="text-[0.8rem] font-bold text-[#8c9b96] uppercase tracking-wider block leading-none">Cartridge B</span>
-                        <strong id="slot-b-name" class="text-white text-[1.25rem] tracking-tight font-extrabold leading-tight truncate block pt-1">Select A Title</strong>
-                        <span id="slot-b-meta" class="text-[#a0aec0] font-mono text-[0.9rem] block truncate leading-none pt-1">00 KB | NROM | NONE</span>
+                        <span class="text-[0.8rem] font-mono font-bold text-[#8c9b96] uppercase tracking-wider block leading-none">Cartridge B</span>
+                        <strong id="slot-b-name" class="text-white text-[1.15rem] tracking-tight font-bold leading-tight truncate block pt-1.5">Select A Title</strong>
+                        <span id="slot-b-meta" class="text-[#a0aec0] font-mono text-[0.85rem] block truncate leading-none pt-1">00 KB | NROM | NONE</span>
                     </div>
                 </div>
             </div>
 
-            <div id="grid-parent-card" class="bg-[#111823] p-6 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-4 flex-grow justify-between" style="border: none !important;">
+            <div id="grid-parent-card" class="bg-[#111823] p-6 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-4 flex-grow justify-between">
                 <div class="flex justify-between items-center border-b border-[#1a2333] pb-4 flex-shrink-0">
                     <h3 class="m-0 text-[1.25rem] font-bold text-white tracking-tight">Visual Size Comparison (In KB)</h3>
                     <div id="comparison-delta-panel" class="text-right font-mono font-bold text-[#a0aec0] text-[0.95rem]">
@@ -172,7 +170,7 @@
                             <span>Empty Bank</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 bg-[#ce0e00] rounded-[2px]"></div>
+                            <div class="w-3 h-3 bg-[#00e5ff] rounded-[2px]"></div>
                             <span>Cart A Only</span>
                         </div>
                         <div class="flex items-center gap-2">
@@ -180,7 +178,7 @@
                             <span>Cart B Only</span>
                         </div>
                         <div class="flex items-center gap-2 relative">
-                            <div class="w-3 h-3 bg-[#ce0e00] rounded-[2px] flex items-center justify-center relative" style="box-shadow: inset 0 0 0 3px #8c9b96 !important;">
+                            <div class="w-3 h-3 bg-[#00e5ff] rounded-[2px] flex items-center justify-center relative" style="box-shadow: inset 0 0 0 3px #8c9b96 !important;">
                             </div>
                             <span>Exact Overlap</span>
                         </div>
@@ -189,8 +187,7 @@
             </div>
         </div>
     </div>
-</div>
-<script>
+</div><script>
 document.addEventListener("DOMContentLoaded", () => {
     let activeQueue = [];
 
@@ -238,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
             syncSlotsToDom();
         });
     }
+
     function syncSlotsToDom() {
         document.querySelectorAll(".game-comparison-card").forEach(card => {
             const badge = card.querySelector(".slot-status-badge");
@@ -250,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (activeQueue.length > 0) {
             updateSlotUI(slotA, activeQueue[0]);
-            updateCardState(activeQueue[0].name, "Cart A", "text-[#ce0e00]", "border-[#ce0e00] bg-[#141d2a]");
+            updateCardState(activeQueue[0].name, "Cart A", "text-[#00e5ff]", "border-[#00e5ff] bg-[#141d2a]");
         } else {
             clearSlotUI(slotA, "[ A ]");
         }
@@ -351,12 +349,12 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 if (currentKb <= sizeA && currentKb <= sizeB) {
                     if (sizeA <= sizeB) {
-                        node.style.backgroundColor = "#ce0e00";
+                        node.style.backgroundColor = "#00e5ff";
                     } else {
                         node.style.backgroundColor = "#8c9b96";
                     }
                 } else if (currentKb <= sizeA) {
-                    node.style.backgroundColor = "#ce0e00";
+                    node.style.backgroundColor = "#00e5ff";
                 } else if (currentKb <= sizeB) {
                     node.style.backgroundColor = "#8c9b96";
                 } else {
