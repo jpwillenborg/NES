@@ -1160,6 +1160,10 @@ video {
   text-align: left;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-right {
   text-align: right;
 }
@@ -1223,6 +1227,10 @@ video {
 
 .font-medium {
   font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
 }
 
 .font-semibold {
