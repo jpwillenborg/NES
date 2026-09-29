@@ -27,26 +27,13 @@
     #nes-matrix-wrapper strong {
         font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     }
-    #nes-matrix-wrapper .select-engine-container {
-        position: relative !important;
-        display: block !important;
-        width: 100% !important;
-    }
-    #nes-matrix-wrapper .select-engine-container::after {
-        content: "\25BC" !important;
-        font-size: 0.7rem !important;
-        color: #a0aec0 !important;
-        position: absolute !important;
-        right: 0.95rem !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        pointer-events: none !important;
-    }
     #matrix-sort-dropdown {
         -webkit-appearance: none !important;
         -moz-appearance: none !important;
         appearance: none !important;
-        padding-right: 3rem !important;
+    }
+    #matrix-sort-dropdown::-ms-expand {
+        display: none !important;
     }
     #allocation-matrix-grid {
         display: grid !important;
@@ -77,21 +64,22 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-12">
         <div class="col-span-1 flex flex-col h-full">
-            <div class="bg-[#111823] p-4 rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex items-center justify-between gap-4 mb-4 flex-shrink-0">
-                <div class="flex-grow text-left">
-                    <span class="text-[0.8rem] font-bold text-[#a0aec0] uppercase tracking-wider block mb-1">Bus Matrix Sorting Engine</span>
-                    <div class="select-engine-container">
-                        <select id="matrix-sort-dropdown" class="bg-[#090d16] text-white text-[0.95rem] rounded-[6px] p-2 w-full outline-none focus:border-[#00e5ff] cursor-pointer" style="border: none !important;">
+            <div class="bg-[#111823] p-4 rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-2 mb-4 flex-shrink-0">
+                <span class="text-[0.8rem] font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Bus Matrix Sorting Engine</span>
+                <div style="display: grid !important; grid-template-columns: 1fr auto !important; gap: 12px !important; width: 100% !important; align-items: center !important;">
+                    <div style="position: relative !important; width: 100% !important;">
+                        <select id="matrix-sort-dropdown" class="bg-[#090d16] text-white text-[0.95rem] rounded-[6px] cursor-pointer block" style="height: 42px !important; border: none !important; width: 100% !important; padding-left: 16px !important; padding-right: 36px !important; box-sizing: border-box !important;">
                             <option value="date-oldest">Release Date (Oldest)</option>
                             <option value="date-newest">Release Date (Newest)</option>
                             <option value="alpha-asc">Alphabetical (A-Z)</option>
                             <option value="size-desc">Size (Largest First)</option>
                         </select>
+                        <div style="position: absolute !important; right: 14px !important; top: 50% !important; transform: translateY(-50%) !important; pointer-events: none !important; font-size: 0.7rem !important; color: #a0aec0 !important;">&#9660;</div>
                     </div>
+                    <button type="button" id="reset-sorting" class="bg-[#090d16] text-[#a0aec0] font-medium text-[0.85rem] rounded-[6px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white active:bg-[#1f293d] active:scale-95 transition-all duration-150 transform flex-shrink-0" style="height: 42px !important; border: none !important;">Reset</button>
                 </div>
-                <button type="button" id="reset-sorting" class="bg-[#090d16] text-[#a0aec0] font-medium text-[0.85rem] rounded-[6px] px-3 py-2 mt-5 hover:bg-[#161f2d] hover:text-white transition-all duration-200" style="border: none !important;">Reset</button>
             </div>
-            <div class="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pr-1 portfolio-scrollbar" id="game-selection-list">
+            <div class="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pl-0 pr-3 portfolio-scrollbar" id="game-selection-list">
                 @foreach (var item in Model)
                 {
                     var imageId = item.IgdbData.Cover?.Value?.ImageId;
@@ -112,7 +100,7 @@
                         rawDateKey = splitParts[0];
                     }
 
-                    <div class="bg-[#111823] rounded-[10px] p-4 flex items-center gap-4 transition-colors duration-250 ease-out hover:bg-[#161f2d] cursor-pointer shadow-md group game-comparison-card flex-shrink-0" style="border: none !important;" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate" data-datekey="@rawDateKey">
+                    <div class="bg-[#111823] rounded-[10px] p-4 flex items-center gap-4 transition-transform duration-150 ease-out hover:bg-[#161f2d] active:scale-[0.98] transform cursor-pointer shadow-md group game-comparison-card flex-shrink-0" style="border: none !important;" data-size="@item.SizeInKb" data-name="@item.IgdbData.Name" data-chip="@item.MapperChip" data-date="@displayDate" data-datekey="@rawDateKey">
                         <div class="flex-shrink-0 w-14 h-auto min-h-[4rem] bg-black/20 rounded-[4px] p-0.5 flex items-center justify-center overflow-hidden" style="border: none !important;">
                             @if (!string.IsNullOrEmpty(imageUrl))
                             {
@@ -120,7 +108,7 @@
                             }
                         </div>
                         <div class="flex-grow text-left min-w-0 w-full overflow-hidden">
-                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight group-hover:text-[#8c9b96] transition-colors truncate block">@item.IgdbData.Name</h4>
+                            <h4 class="text-white font-bold text-[1.05rem] m-0 tracking-tight leading-tight truncate block">@item.IgdbData.Name</h4>
                             <span class="text-[#a0aec0] text-[0.85rem] font-mono block pt-1 truncate">@item.MapperChip | @displayDate</span>
                         </div>
                         <div class="flex-shrink-0 text-right flex flex-col gap-1 items-end">
@@ -135,8 +123,8 @@
         <div class="col-span-1 md:col-span-2 flex flex-col gap-6 h-full justify-between">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
                 <div class="bg-[#111823] p-4 rounded-[16px] border-l-[4px] border-l-[#ce0e00] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="border-top: none !important; border-right: none !important; border-bottom: none !important; height: 120px !important;">
-                    <div class="w-16 h-24 bg-black/20 rounded-[6px] p-0.5 flex-shrink-0 flex items-center justify-center overflow-hidden" style="border: none !important;">
-                        <div id="slot-a-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ A ]</div>
+                    <div class="w-16 h-fit max-h-[88px] self-center bg-black/20 rounded-[6px] p-0.5 flex-shrink-0 flex items-center justify-center overflow-hidden" style="border: none !important;">
+                        <div id="slot-a-fallback" class="w-full py-6 flex items-center justify-center text-[#475569] text-xs font-mono">[ A ]</div>
                         <img id="slot-a-img" src="" alt="" class="max-w-full max-h-full object-contain hidden" />
                     </div>
                     <div class="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
@@ -147,8 +135,8 @@
                 </div>
 
                 <div class="bg-[#111823] p-4 rounded-[16px] border-l-[4px] border-l-[#8c9b96] flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden" style="border-top: none !important; border-right: none !important; border-bottom: none !important; height: 120px !important;">
-                    <div class="w-16 h-24 bg-black/20 rounded-[6px] p-0.5 flex-shrink-0 flex items-center justify-center overflow-hidden" style="border: none !important;">
-                        <div id="slot-b-fallback" class="w-full h-full flex items-center justify-center text-[#475569] text-xs font-mono">[ B ]</div>
+                    <div class="w-16 h-fit max-h-[88px] self-center bg-black/20 rounded-[6px] p-0.5 flex-shrink-0 flex items-center justify-center overflow-hidden" style="border: none !important;">
+                        <div id="slot-b-fallback" class="w-full py-6 flex items-center justify-center text-[#475569] text-xs font-mono">[ B ]</div>
                         <img id="slot-b-img" src="" alt="" class="max-w-full max-h-full object-contain hidden" />
                     </div>
                     <div class="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
@@ -166,7 +154,6 @@
                         Delta Resolution Gap: <span class="text-white font-extrabold" id="delta-span">0 KB</span>
                     </div>
                 </div>
-                
                 <div class="bg-[#090d16] rounded-[12px] p-6 flex flex-col gap-4 box-border flex-grow justify-between" style="border: none !important;">
                     <div id="allocation-matrix-grid" class="gap-1.5 w-full justify-center p-1">
                         @for (int i = 0; i < 768; i++)
@@ -188,10 +175,6 @@
                             <div class="w-3 h-3 bg-[#8c9b96] rounded-[2px]"></div>
                             <span>Cart B Only</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 bg-[#ef4444] rounded-[2px]"></div>
-                            <span>Overlapping Banks</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -200,9 +183,7 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    let sizeA = 0;
-    let sizeB = 0;
-    let clickCounter = 0;
+    let activeQueue = [];
 
     const gameListContainer = document.getElementById("game-selection-list");
     const deltaSpan = document.getElementById("delta-span");
@@ -228,34 +209,81 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = e.target.closest(".game-comparison-card");
             if (!card) return;
 
-            const size = parseInt(card.getAttribute("data-size")) || 0;
             const name = card.getAttribute("data-name") || "";
+            const size = parseInt(card.getAttribute("data-size")) || 0;
             const chip = card.getAttribute("data-chip") || "";
             const date = card.getAttribute("data-date") || "";
             const imgSrc = card.querySelector("img") ? card.querySelector("img").getAttribute("src") : "";
-            const statusBadge = card.querySelector(".slot-status-badge");
 
-            clickCounter++;
+            const existingIndex = activeQueue.findIndex(item => item.name === name);
 
-            if (clickCounter % 2 !== 0) {
-                sizeA = size;
-                updateSlot(slotA, name, size, chip, date, imgSrc);
-                clearBadgeText("Cart A");
-                if (statusBadge) {
-                    statusBadge.textContent = "Cart A";
-                    statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#ce0e00] tracking-wider uppercase slot-status-badge";
-                }
+            if (existingIndex !== -1) {
+                activeQueue.splice(existingIndex, 1);
             } else {
-                sizeB = size;
-                updateSlot(slotB, name, size, chip, date, imgSrc);
-                clearBadgeText("Cart B");
-                if (statusBadge) {
-                    statusBadge.textContent = "Cart B";
-                    statusBadge.className = "text-[0.75rem] font-mono font-bold text-[#8c9b96] tracking-wider uppercase slot-status-badge";
+                if (activeQueue.length >= 2) {
+                    activeQueue.shift();
                 }
+                activeQueue.push({ name, size, chip, date, imgSrc });
             }
 
-            updateMemoryAllocationMatrix();
+            syncSlotsToDom();
+        });
+    }
+    function syncSlotsToDom() {
+        document.querySelectorAll(".game-comparison-card").forEach(card => {
+            const badge = card.querySelector(".slot-status-badge");
+            if (badge) {
+                badge.textContent = "Idle";
+                badge.className = "text-[0.75rem] font-mono font-bold text-[#475569] tracking-wider uppercase slot-status-badge";
+            }
+        });
+
+        if (activeQueue[0]) {
+            updateSlotUI(slotA, activeQueue[0]);
+            updateCardBadge(activeQueue[0].name, "Cart A", "text-[#ce0e00]");
+        } else {
+            clearSlotUI(slotA, "[ A ]");
+        }
+
+        if (activeQueue[1]) {
+            updateSlotUI(slotB, activeQueue[1]);
+            updateCardBadge(activeQueue[1].name, "Cart B", "text-[#8c9b96]");
+        } else {
+            clearSlotUI(slotB, "[ B ]");
+        }
+
+        updateMemoryAllocationMatrix();
+    }
+
+    function updateSlotUI(slot, game) {
+        if (slot.name) slot.name.textContent = game.name;
+        if (slot.meta) slot.meta.textContent = `${game.size} KB | ${game.chip} | ${game.date}`;
+        if (game.imgSrc && slot.img && slot.fallback) {
+            slot.img.setAttribute("src", game.imgSrc);
+            slot.img.classList.remove("hidden");
+            slot.fallback.classList.add("hidden");
+        } else if (slot.img && slot.fallback) {
+            slot.img.classList.add("hidden");
+            slot.fallback.classList.remove("hidden");
+        }
+    }
+
+    function clearSlotUI(slot, label) {
+        if (slot.name) slot.name.textContent = "Select Component...";
+        if (slot.meta) slot.meta.textContent = "00 KB | NROM | NONE";
+        if (slot.img) slot.img.classList.add("hidden");
+        if (slot.fallback) slot.fallback.classList.remove("hidden");
+    }
+
+    function updateCardBadge(gameName, text, colorClass) {
+        document.querySelectorAll(".game-comparison-card").forEach(card => {
+            if (card.getAttribute("data-name") === gameName) {
+                const badge = card.querySelector(".slot-status-badge");
+                if (badge) {
+                    badge.textContent = text;
+                    badge.className = `text-[0.75rem] font-mono font-bold ${colorClass} tracking-wider uppercase slot-status-badge`;
+                }
+            }
         });
     }
 
@@ -280,57 +308,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function updateSlot(slot, name, size, chip, date, imgSrc) {
-        if (!slot.name || !slot.meta) return;
-        slot.name.textContent = name;
-        slot.meta.textContent = `${size} KB | ${chip} | ${date}`;
-        if (imgSrc && slot.img && slot.fallback) {
-            slot.img.setAttribute("src", imgSrc);
-            slot.img.classList.remove("hidden");
-            slot.fallback.classList.add("hidden");
-        } else if (slot.img && slot.fallback) {
-            slot.img.classList.add("hidden");
-            slot.fallback.classList.remove("hidden");
-        }
-    }
-
-    function clearBadgeText(keepBadge) {
-        document.querySelectorAll(".game-comparison-card").forEach(card => {
-            const badge = card.querySelector(".slot-status-badge");
-            if (badge && badge.textContent === keepBadge) {
-                badge.textContent = "Idle";
-                badge.className = "text-[0.75rem] font-mono font-bold text-[#475569] tracking-wider uppercase slot-status-badge";
-            }
-        });
-    }
-
     const resetBtn = document.getElementById("reset-sorting");
     if (resetBtn) {
         resetBtn.addEventListener("click", () => {
-            sizeA = 0;
-            sizeB = 0;
-            clickCounter = 0;
-            
-            if (slotA.name) slotA.name.textContent = "Select Component...";
-            if (slotA.meta) slotA.meta.textContent = "00 KB | NROM | NONE";
-            if (slotA.img) slotA.img.classList.add("hidden");
-            if (slotA.fallback) slotA.fallback.classList.remove("hidden");
-            
-            if (slotB.name) slotB.name.textContent = "Select Component...";
-            if (slotB.meta) slotB.meta.textContent = "00 KB | NROM | NONE";
-            if (slotB.img) slotB.img.classList.add("hidden");
-            if (slotB.fallback) slotB.fallback.classList.remove("hidden");
-
-            document.querySelectorAll(".slot-status-badge").forEach(badge => {
-                badge.textContent = "Idle";
-                badge.className = "text-[0.75rem] font-mono font-bold text-[#475569] tracking-wider uppercase slot-status-badge";
-            });
-            
-            updateMemoryAllocationMatrix();
+            activeQueue = [];
+            syncSlotsToDom();
         });
     }
 
     function updateMemoryAllocationMatrix() {
+        const sizeA = activeQueue[0] ? activeQueue[0].size : 0;
+        const sizeB = activeQueue[1] ? activeQueue[1].size : 0;
+        
         const delta = Math.abs(sizeA - sizeB);
         if (deltaSpan) {
             deltaSpan.textContent = `${delta} KB`;
@@ -340,9 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const currentKb = parseInt(node.getAttribute("data-index")) + 1;
             node.className = "aspect-square rounded-[2px] transition-all duration-150 memory-block-node";
 
-            if (currentKb <= sizeA && currentKb <= sizeB) {
-                node.style.backgroundColor = "#ef4444";
-            } else if (currentKb <= sizeA) {
+            if (currentKb <= sizeA) {
                 node.style.backgroundColor = "#ce0e00";
             } else if (currentKb <= sizeB) {
                 node.style.backgroundColor = "#8c9b96";
