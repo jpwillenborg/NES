@@ -58,11 +58,11 @@
             </h1>
             
             <!-- Paragraph element utilizing the master mt-10 mb-16 vertical rules -->
-            <div class="text-[#a0aec0] text-[1.05rem] leading-[1.65] mt-10 mb-16 block w-full">
-                <p class="m-0 opacity-90 max-w-[900px]">
+            <div class="text-[#a0aec0] text-[1.05rem] leading-[1.65] mt-10 mb-0 block w-full">
+                <p class="m-0 opacity-90">
                     Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
                 </p>
-                <p class="m-0 pt-5 opacity-90 max-w-[900px]">
+                <p class="m-0 pt-8 opacity-90">
                     Select two games from the list to see how <span class="text-[#00e5ff] font-semibold">CARTRIDGE A</span> and <span class="text-[#a855f7] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
                 </p>
             </div>
@@ -78,7 +78,7 @@
     }<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-10">
         <div class="col-span-1 flex flex-col h-full">
             <div class="bg-[#111823] p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-3 mb-4 flex-shrink-0">
-                <span class="text-[0.8rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Bus Matrix Sorting Engine</span>
+                <span class="text-[1.0rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Bus Matrix Sorting Engine</span>
                 <div style="display: grid !important; grid-template-columns: 1fr auto !important; gap: 10px !important; width: 100% !important; align-items: center !important;">
                     <div style="position: relative !important; width: 100% !important;">
                         <select id="matrix-sort-dropdown" class="bg-[#090d16] text-white text-[0.9rem] rounded-[8px] cursor-pointer block border border-[#1a2333] hover:border-[#00e5ff]/40 transition-colors" style="height: 40px !important; width: 100% !important; padding-left: 14px !important; padding-right: 32px !important; box-sizing: border-box !important;">
