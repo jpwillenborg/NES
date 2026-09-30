@@ -46,17 +46,28 @@
 </style>
 
 <div id="nes-matrix-wrapper" class="w-full relative pb-16">
-    <div class="mb-14 text-left flex flex-col gap-3 w-full pt-2">
-        <span class="portfolio-tag-line block mb-1">02 / Systems Insight</span>
-        <h1 class="portfolio-main-title m-0">
-            NES System Bus &amp; Memory Allocation Matrix
-        </h1>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.7] tracking-normal opacity-90 pt-3 max-w-[900px]">
-            Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
-        </p>
-        <p class="m-0 text-[#a0aec0] text-[1.05rem] leading-[1.7] tracking-normal opacity-90 pt-5 max-w-[900px]">
-            Select two games from the list to see how <span class="text-[#00e5ff] font-semibold">CARTRIDGE A</span> and <span class="text-[#a855f7] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
-        </p>
+    
+    <!-- Outer header layout block matching React structural design layout -->
+    <div class="flex flex-col pb-6 mb-10">
+        
+        <!-- Text container using exact layout alignments -->
+        <div class="text-left w-full">
+            <span class="portfolio-tag-line block mb-0">02 / Systems Insight</span>
+            <h1 class="portfolio-main-title m-0 pt-1">
+                NES System Bus &amp; Memory Allocation Matrix
+            </h1>
+            
+            <!-- Paragraph element utilizing the master mt-10 mb-16 vertical rules -->
+            <div class="text-[#a0aec0] text-[1.05rem] leading-[1.65] mt-10 mb-16 block w-full">
+                <p class="m-0 opacity-90 max-w-[900px]">
+                    Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
+                </p>
+                <p class="m-0 pt-5 opacity-90 max-w-[900px]">
+                    Select two games from the list to see how <span class="text-[#00e5ff] font-semibold">CARTRIDGE A</span> and <span class="text-[#a855f7] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
+                </p>
+            </div>
+        </div>
+
     </div>
 
     @if (ViewBag.Error != null)
