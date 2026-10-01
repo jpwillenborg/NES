@@ -1,41 +1,43 @@
 using IGDB;
+using NES_Box_Art.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. EXTRACT VARIABLES FROM THE LOCAL SECRETS REGISTER
 var clientId = builder.Configuration["Twitch:ClientId"] ?? builder.Configuration["IGDB:ClientId"];
 var clientSecret = builder.Configuration["Twitch:ClientSecret"] ?? builder.Configuration["IGDB:ClientSecret"];
 
-// 2. REGISTER THE DI CONTROLLER INSTANCE WITH SAFE CONFIGURATION VALIDATION
 builder.Services.AddSingleton<IGDBClient>(sp => 
 {
-    if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
-    {
-        // Fallback placeholder instance preventing application breakdown on startup
-        return new IGDBClient(string.Empty, string.Empty);
-    }
-    return new IGDBClient(clientId, clientSecret);
+    return new IGDBClient(clientId ?? string.Empty, clientSecret ?? string.Empty);
 });
 
-// Add standard framework MVC page support services
-builder.Services.AddControllersWithViews();
+var allowedOrigins = builder.Configuration.GetSection("Frontend:AllowedOrigins").Get<string[]>() ??
+    ["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5174", "https://nes.jpwillenborg.com"];
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+builder.Services.AddProblemDetails();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<IGameTimelineService, GameTimelineService>();
+builder.Services.AddCors(options => options.AddPolicy("frontend", policy =>
+    policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
 
-// 3. CONFIGURE THE HTTP REQUEST PIPELINE ROUTER MAPPINGS
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler();
     app.UseHsts();
-    app.UseHttpsRedirection();
+}
+else
+{
+    app.UseExceptionHandler();
+    app.MapOpenApi();
 }
 
-app.UseStaticFiles();
-app.UseRouting();
-app.UseAuthorization();
+app.UseStatusCodePages();
+app.UseCors("frontend");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();
