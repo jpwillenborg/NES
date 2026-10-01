@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #090d16;
+  color: #a0aec0;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+#allocation-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+}
+
+#nes-matrix-wrapper .portfolio-tag-line {
+  font-family: 'Geist Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 1.1rem !important;
+  color: #00e5ff !important;
+  letter-spacing: .05em !important;
+  font-weight: 400 !important;
+}
+
+#nes-matrix-wrapper .portfolio-main-title {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 2.1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -.01em !important;
+  color: #ffffff !important;
+  line-height: 1.2 !important;
+}
+
+#nes-matrix-wrapper p,
+#nes-matrix-wrapper h3,
+#nes-matrix-wrapper h4,
+#nes-matrix-wrapper strong {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.memory-block-node.is-overlapping {
+  background-color: #00e5ff !important;
+  box-shadow: inset 0 0 0 3px #a855f7 !important;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff;
+}
+
