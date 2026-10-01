@@ -11,6 +11,7 @@ const SORT_OPTIONS = [
 ];
 
 export default function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [games, setGames] = useState([]);
   const [selectedGames, setSelectedGames] = useState([]);
   const [sortBy, setSortBy] = useState('date-oldest');
@@ -44,6 +45,28 @@ export default function App() {
     return () => controller.abort();
   }, []);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+    const closeOnDesktop = () => {
+      if (window.matchMedia('(min-width: 768px)').matches) setIsMobileMenuOpen(false);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+    window.addEventListener('resize', closeOnDesktop);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+      window.removeEventListener('resize', closeOnDesktop);
+    };
+  }, [isMobileMenuOpen]);
+
   const sortedGames = [...games].sort((first, second) => {
     if (sortBy === 'name-asc') return first.name.localeCompare(second.name);
     if (sortBy === 'size-desc') return second.sizeInKb - first.sizeInKb;
@@ -68,7 +91,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <header>
-        <nav className="fixed top-0 left-0 w-full z-50 py-[1.25rem] bg-[#06090f] transition-colors duration-200 ease-in-out">
+        <nav aria-label="Main Navigation" className="fixed top-0 left-0 w-full z-50 py-[1.25rem] bg-[#06090f] transition-colors duration-200 ease-in-out">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between w-full m-0">
               <div className="w-1/2 md:w-1/4 text-left">
@@ -89,11 +112,31 @@ export default function App() {
                 <a href="https://jpwillenborg.com/#contact" className="hidden md:block bg-[#00e5ff] text-[#090d16] font-sans font-medium text-[0.85rem] tracking-[0.01em] rounded-[6px] px-[1.25rem] py-[0.45rem] shadow-[0_0_16px_4px_rgba(0,0,0,0.35)] no-underline hover:bg-[#66efff] transition-all duration-200">
                   Let's Connect
                 </a>
+                <button
+                  type="button"
+                  className="bg-transparent border-0 outline-none p-0 md:hidden text-[1.75rem] no-underline cursor-pointer rounded-[4px]"
+                  onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
+                  aria-expanded={isMobileMenuOpen}
+                  aria-controls="nes-mobile-nav"
+                  aria-label="Toggle mobile navigation menu"
+                >
+                  <span className="text-[#a0aec0] opacity-85 hover:text-[#00e5ff] transition-all duration-200">{isMobileMenuOpen ? '✕' : '☰'}</span>
+                </button>
               </div>
             </div>
           </div>
         </nav>
       </header>
+      {isMobileMenuOpen && (
+        <div id="nes-mobile-nav" aria-label="Mobile navigation" className="fixed top-0 left-0 h-screen w-screen z-40 flex flex-col justify-center items-center md:hidden gap-6 bg-[#090d16]">
+          <a href="https://jpwillenborg.com/#top" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Overview</a>
+          <a href="https://jpwillenborg.com/#stacks" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Tech Stack</a>
+          <a href="https://jpwillenborg.com/#apps" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Web Apps</a>
+          <a href="https://jpwillenborg.com/#gamedev" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Game Dev</a>
+          <a href="https://jpwillenborg.com/#modeling" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">3D Modeling</a>
+          <a href="https://jpwillenborg.com/#contact" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-[#00e5ff] font-mono font-bold text-[1.25rem]">Let's Connect</a>
+        </div>
+      )}
 
       <div className="w-full box-border relative z-10 px-4 sm:px-6" style={{ paddingTop: 160, paddingBottom: 120 }}>
         <main role="main" className="max-w-[1024px] mx-auto w-full box-border">
