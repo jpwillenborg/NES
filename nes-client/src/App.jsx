@@ -143,14 +143,17 @@ export default function App() {
           <div id="nes-matrix-wrapper" className="w-full relative pb-16">
             <div className="flex flex-col pb-6 mb-10">
               <div className="text-left w-full">
-                <span className="portfolio-tag-line block mb-0 font-mono text-[1.1rem] text-[#00e5ff] font-normal">02 / Systems Insight</span>
+                <span className="portfolio-tag-line block mb-0 font-mono text-[1.1rem] text-[#00e5ff] font-normal">// Memory Comparison</span>
                 <h1 className="portfolio-main-title m-0 pt-1 font-sans text-[2.1rem] font-semibold text-white leading-[1.2]">
-                  NES System Bus &amp; Memory Allocation Matrix
+                  NES Mapper Benchmark Tool
                 </h1>
                 <div className="text-[#a0aec0] text-[1.05rem] leading-[1.65] mt-10 mb-0 block w-full">
                   <p className="m-0 opacity-90">
-                    Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
+                    A React/Vite visualizer hosted on Apache, backed by a controller-based ASP.NET Core Web API on Render. The API retrieves and caches IGDB release data and pairs it with curated NES cartridge-capacity and mapper estimates for side-by-side comparison.
                   </p>
+                  {/* <p className="m-0 pt-8 opacity-90">
+                    Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
+                  </p> */}
                   <p className="m-0 pt-8 opacity-90">
                     Select two games from the list to see how <span className="text-[#00e5ff] font-semibold">CARTRIDGE A</span> and <span className="text-[#a855f7] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
                   </p>
@@ -164,16 +167,16 @@ export default function App() {
             {!isLoading && !error && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-10">
                 <div className="col-span-1 flex flex-col h-full">
-                  <div className="bg-[#111823] p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-3 mb-4 flex-shrink-0">
-                    <span className="text-[1rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Bus Matrix Sorting Engine</span>
+                  <div className="bg-[#111823] p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-3 mb-4 flex-shrink-0">
+                    <span className="text-[1rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left">Sort All Games By</span>
                     <div className="grid grid-cols-[1fr_auto] gap-[10px] w-full items-center">
                       <div className="relative w-full">
-                        <select id="matrix-sort-dropdown" value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="appearance-none bg-[#090d16] text-white text-[0.9rem] rounded-[8px] cursor-pointer block border border-[#1a2333] hover:border-[#00e5ff]/40 transition-colors h-10 w-full pl-[14px] pr-8 box-border">
+                        <select id="matrix-sort-dropdown" value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="appearance-none bg-[#090d16] text-white text-[0.9rem] rounded-[8px] cursor-pointer block hover:border-[#00e5ff]/40 transition-colors h-10 w-full pl-[14px] pr-8 box-border">
                           {SORT_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
                         </select>
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[0.7rem] text-[#a0aec0]">&#9660;</div>
                       </div>
-                      <button type="button" id="reset-sorting" onClick={() => setSelectedGames([])} className="bg-[#090d16] border border-[#1a2333] text-[#a0aec0] font-medium text-[0.85rem] rounded-[8px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white hover:border-[#00e5ff]/40 active:scale-95 transition-all duration-150 transform flex-shrink-0 h-10">Reset</button>
+                      <button type="button" id="reset-sorting" onClick={() => setSelectedGames([])} className="bg-[#090d16] text-[#a0aec0] font-medium text-[0.85rem] rounded-[8px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white hover:border-[#00e5ff]/40 active:scale-95 transition-all duration-150 transform flex-shrink-0 h-10">Reset</button>
                     </div>
                   </div>
                   <div className="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pl-0 pr-3 portfolio-scrollbar" id="game-selection-list">
@@ -186,7 +189,7 @@ export default function App() {
                           key={game.name}
                           aria-pressed={selectedIndex >= 0}
                           onClick={() => toggleGame(game)}
-                          className={`w-full text-left bg-[#111823] rounded-[10px] p-4 flex items-center gap-4 transition-all duration-150 ease-out hover:bg-[#161f2d] active:scale-[0.98] transform cursor-pointer shadow-md flex-shrink-0 border-2 ${selectedBorder}`}
+                          className={`w-full text-left bg-[#111823] rounded-[10px] p-4 flex items-center gap-4 transition-all duration-150 ease-out hover:bg-[#141e2e] active:scale-[0.98] transform cursor-pointer shadow-md flex-shrink-0 border-2 ${selectedBorder}`}
                         >
                           <div className="flex-shrink-0 w-14 h-auto min-h-[4rem] rounded-[3px] overflow-hidden flex items-center justify-center">
                             {game.coverUrl && <img src={game.coverUrl} alt="" loading="lazy" className="w-full h-auto max-h-16 object-contain opacity-80 hover:opacity-100 transition-opacity shadow-none" />}
@@ -214,7 +217,7 @@ export default function App() {
                   <div id="grid-parent-card" className="bg-[#111823] p-6 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-4 flex-grow justify-between">
                     <div className="flex justify-between items-center border-b border-[#1a2333] pb-4 flex-shrink-0">
                       <h3 className="m-0 text-[1.25rem] font-bold text-white tracking-tight">Visual Size Comparison (In KB)</h3>
-                      <div className="text-right font-mono font-bold text-[#a0aec0] text-[0.95rem]">Delta Resolution Gap: <span className="text-white font-extrabold">{memoryDifference} KB</span></div>
+                      <div className="text-right font-mono font-bold text-[#a0aec0] text-[0.95rem]">Difference: <span className="text-white font-extrabold">{memoryDifference} KB</span></div>
                     </div>
                     <div className="bg-[#090d16] rounded-[12px] p-6 flex flex-col gap-4 box-border flex-grow justify-between">
                       <div id="allocation-matrix-grid" className="grid-cols-24 gap-1.5 w-full justify-center p-1" role="img" aria-label={getMatrixDescription(firstGame, secondGame)}>
