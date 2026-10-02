@@ -3,10 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b1016" />
-    <meta name="description" content="Compare NES cartridge memory capacities and mapper hardware across classic releases." />
-    <title>Memory Allocation Matrix - NES Box Art Analytics</title>
+    <title>NES Mapper Benchmark Tool | John Willenborg</title>
+
+    <!-- App-Specific SEO Search Engine Metadata -->
+    <meta name="description" content="An interactive NES hardware visualizer and cartridge memory benchmark tool built by John Willenborg. Features side-by-side memory footprint comparisons, system bus mapping via React/Vite, and an ASP.NET Core Web API processing IGDB data." />
+    <meta name="keywords" content="NES Mapper Benchmark Tool, John Willenborg, Retro Engineering, NES Cartridge Capacity, Memory Comparison Grid, System Bus Visualizer, ASP.NET Core Web API, React, Vite, C#, IGDB API, Game Development" />
+    <meta name="author" content="John Willenborg" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Metadata (Optimized for LinkedIn, Discord, and GitHub Previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NES Mapper Benchmark Tool | John Willenborg" />
+    <meta property="og:description" content="Compare retro games side-by-side to visualize cartridge capacity, mapper types, and hardware memory footprints with an active interactive grid mapping tool." />
+    <meta property="og:url" content="https://john.willenborg" /> <!-- Replace with your actual live subdomain URL if different -->
+    <meta property="og:image" content="/nes-og-preview.png" /> <!-- Name your 1200x630 visual comparison screenshot 'nes-og-preview.png' and put it in public/ -->
+
+    <!-- Twitter / X Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NES Mapper Benchmark Tool | John Willenborg" />
+    <meta name="twitter:description" content="Interactive NES cartridge capacity and mapper memory footprint visualizer built with React, Vite, and C# ASP.NET Core." />
+    <meta name="twitter:image" content="/nes-og-preview.png" />
+
+    <!-- Favicons & Subdomain Colors -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#090d16" />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
