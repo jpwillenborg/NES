@@ -45,7 +45,7 @@ body {
 
 .memory-block-node.is-overlapping {
   background-color: #00e5ff !important;
-  box-shadow: inset 0 0 0 3px #a855f7 !important;
+  box-shadow: inset 0 0 0 4px #a855f7 !important;
 }
 
 .portfolio-scrollbar::-webkit-scrollbar {
