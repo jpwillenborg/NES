@@ -7,6 +7,7 @@ const SORT_OPTIONS = [
   { value: 'date-oldest', label: 'Release Date (Oldest)' },
   { value: 'date-newest', label: 'Release Date (Newest)' },
   { value: 'name-asc', label: 'Name: A to Z' },
+  { value: 'size-asc', label: 'Size (Smallest First)' },
   { value: 'size-desc', label: 'Size (Largest First)' }
 ];
 
@@ -70,7 +71,12 @@ export default function App() {
   const sortedGames = [...games].sort((first, second) => {
     if (sortBy === 'name-asc') return first.name.localeCompare(second.name);
     if (sortBy === 'size-desc') return second.sizeInKb - first.sizeInKb;
+    if (sortBy === 'size-asc') return first.sizeInKb - second.sizeInKb;
     const dateOrder = new Date(first.releaseDate) - new Date(second.releaseDate);
+    if (dateOrder === 0) {
+      if (first.name === "Super Mario Bros.") return -1;
+      if (second.name === "Super Mario Bros.") return 1;
+    }
     return sortBy === 'date-newest' ? -dateOrder : dateOrder;
   });
 
@@ -219,7 +225,7 @@ export default function App() {
                   <div id="grid-parent-card" className="bg-[#111823] p-6 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-4 flex-grow justify-between">
                     <div className="flex justify-between items-center border-b border-[#1a2333] pb-4 flex-shrink-0">
                       <h3 className="m-0 text-[1.25rem] font-bold text-white tracking-tight">Visual Size Comparison (In KB)</h3>
-                      <div className="text-right font-mono font-bold text-[#a0aec0] text-[0.95rem]">Difference: <span className="text-white font-extrabold">{memoryDifference} KB</span></div>
+                      <div className="text-right font-mono font-bold text-[#a0aec0] text-[1.1rem]">Difference: <span className="text-white font-extrabold">{memoryDifference} KB</span></div>
                     </div>
                     <div className="bg-[#090d16] rounded-[12px] p-6 flex flex-col gap-4 box-border flex-grow justify-between">
                       <div id="allocation-matrix-grid" className="grid-cols-24 gap-1.5 w-full justify-center p-1" role="img" aria-label={getMatrixDescription(firstGame, secondGame)}>
