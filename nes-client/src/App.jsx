@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/$/, '');
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/\$/, '');
 const MEMORY_BLOCKS = 768;
+
+// JavaScript references driven strictly by your tailwind config values
+const CYAN_HEX = 'var(--color-portfolio-cyan)';
+const PURPLE_HEX = 'var(--color-portfolio-purple)';
 
 const SORT_OPTIONS = [
   { value: 'date-oldest', label: 'Release Date (Oldest)' },
@@ -93,7 +97,6 @@ export default function App() {
   const memoryDifference = firstGame && secondGame
     ? Math.abs(firstGame.sizeInKb - secondGame.sizeInKb)
     : 0;
-
   return (
     <div className="app-shell">
       <header>
@@ -101,21 +104,21 @@ export default function App() {
           <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between w-full m-0">
               <div className="w-1/2 md:w-1/4 text-left">
-                <a href="https://jpwillenborg.com/#top" className="text-[1.75rem] font-bold text-white no-underline tracking-tight inline-block lowercase font-sans">
-                  john<span className="text-[#00e5ff]">.</span>willenborg
+                <a href="https://jpwillenborg.com" className="text-[1.75rem] font-bold text-white no-underline tracking-tight inline-block lowercase font-sans">
+                  john<span className="text-portfolio-cyan">.</span>willenborg
                 </a>
               </div>
               <div className="hidden md:flex md:w-1/2 justify-center items-center">
                 <div className="flex gap-[2.75rem]">
-                  <a href="https://jpwillenborg.com/#top" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Overview</a>
-                  <a href="https://jpwillenborg.com/#stacks" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Tech Stack</a>
-                  <a href="https://jpwillenborg.com/#apps" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Web Apps</a>
-                  <a href="https://jpwillenborg.com/#gamedev" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Game Dev</a>
-                  <a href="https://jpwillenborg.com/#modeling" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-[#00e5ff] hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">3D Modeling</a>
+                  <a href="https://jpwillenborg.com" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-portfolio-cyan hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Overview</a>
+                  <a href="https://jpwillenborg.com" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-portfolio-cyan hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Tech Stack</a>
+                  <a href="https://jpwillenborg.com" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-portfolio-cyan hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Web Apps</a>
+                  <a href="https://jpwillenborg.com" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-portfolio-cyan hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">Game Dev</a>
+                  <a href="https://jpwillenborg.com" className="no-underline font-mono text-[#a0aec0] opacity-85 hover:text-portfolio-cyan hover:opacity-100 transition-all duration-200 text-[1.05rem] font-normal tracking-normal inline-block text-center">3D Modeling</a>
                 </div>
               </div>
               <div className="w-1/2 md:w-1/4 text-right flex justify-end items-center">
-                <a href="https://jpwillenborg.com/#contact" className="hidden md:block bg-[#00e5ff] text-[#090d16] font-sans font-medium text-[0.85rem] tracking-[0.01em] rounded-[6px] px-[1.25rem] py-[0.45rem] shadow-[0_0_16px_4px_rgba(0,0,0,0.35)] no-underline hover:bg-[#66efff] transition-all duration-200">
+                <a href="https://jpwillenborg.com" className="hidden md:block bg-portfolio-cyan text-[#090d16] font-sans font-medium text-[0.85rem] tracking-[0.01em] rounded-[6px] px-[1.25rem] py-[0.45rem] shadow-[0_0_16px_4px_rgba(0,0,0,0.35)] no-underline hover:bg-[#66efff] transition-all duration-200">
                   Let's Connect
                 </a>
                 <button
@@ -126,7 +129,7 @@ export default function App() {
                   aria-controls="nes-mobile-nav"
                   aria-label="Toggle mobile navigation menu"
                 >
-                  <span className="text-[#a0aec0] opacity-85 hover:text-[#00e5ff] transition-all duration-200">{isMobileMenuOpen ? '✕' : '☰'}</span>
+                  <span className="text-[#a0aec0] opacity-85 hover:text-portfolio-cyan transition-all duration-200">{isMobileMenuOpen ? '✕' : '☰'}</span>
                 </button>
               </div>
             </div>
@@ -135,12 +138,12 @@ export default function App() {
       </header>
       {isMobileMenuOpen && (
         <div id="nes-mobile-nav" aria-label="Mobile navigation" className="fixed top-0 left-0 h-screen w-screen z-40 flex flex-col justify-center items-center md:hidden gap-6 bg-[#090d16]">
-          <a href="https://jpwillenborg.com/#top" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Overview</a>
-          <a href="https://jpwillenborg.com/#stacks" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Tech Stack</a>
-          <a href="https://jpwillenborg.com/#apps" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Web Apps</a>
-          <a href="https://jpwillenborg.com/#gamedev" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Game Dev</a>
-          <a href="https://jpwillenborg.com/#modeling" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">3D Modeling</a>
-          <a href="https://jpwillenborg.com/#contact" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-[#00e5ff] font-mono font-bold text-[1.25rem]">Let's Connect</a>
+          <a href="https://jpwillenborg.com" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Overview</a>
+          <a href="https://jpwillenborg.com" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Tech Stack</a>
+          <a href="https://jpwillenborg.com" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Web Apps</a>
+          <a href="https://jpwillenborg.com" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">Game Dev</a>
+          <a href="https://jpwillenborg.com" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-white font-mono font-bold text-[1.25rem]">3D Modeling</a>
+          <a href="https://jpwillenborg.com" onClick={() => setIsMobileMenuOpen(false)} className="no-underline text-portfolio-cyan font-mono font-bold text-[1.25rem]">Let's Connect</a>
         </div>
       )}
 
@@ -149,7 +152,7 @@ export default function App() {
           <div id="nes-matrix-wrapper" className="w-full relative pb-16">
             <div className="flex flex-col pb-6 mb-10">
               <div className="text-left w-full">
-                <span className="portfolio-tag-line block mb-0 font-mono text-[1.1rem] text-[#00e5ff] font-normal">// Memory Comparison</span>
+                <span className="portfolio-tag-line block mb-0 font-mono text-[1.1rem] text-portfolio-cyan font-normal">// Memory Comparison</span>
                 <h1 className="portfolio-main-title m-0 pt-1 font-sans text-[2.1rem] font-semibold text-white leading-[1.2]">
                   NES Mapper Benchmark Tool
                 </h1>
@@ -157,11 +160,8 @@ export default function App() {
                   <p className="m-0 opacity-90">
                     A React/Vite visualizer hosted on Apache, backed by a controller-based ASP.NET Core Web API on Render. The API retrieves and caches IGDB release data and pairs it with curated NES cartridge-capacity and mapper estimates for side-by-side comparison.
                   </p>
-                  {/* <p className="m-0 pt-8 opacity-90">
-                    Standard NES hardware was originally restricted to a small 64KB address space boundary - until custom Memory Management Controllers (MMCs) or Mappers were introduced. This tool helps visualize how mappers expanded the boundaries to house larger game maps and complex audio.
-                  </p> */}
                   <p className="m-0 pt-8 opacity-90">
-                    Select two games from the list to see how <span className="text-[#00e5ff] font-semibold">CARTRIDGE A</span> and <span className="text-[#a855f7] font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
+                    Select two games from the list to see how <span className="text-portfolio-cyan font-semibold">CARTRIDGE A</span> and <span className="text-portfolio-purple font-semibold">CARTRIDGE B</span> compare in terms of memory footprint.
                   </p>
                 </div>
               </div>
@@ -177,12 +177,12 @@ export default function App() {
                     <span className="text-[1rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left pl-[4px]">Sort All Games By:</span>
                     <div className="grid grid-cols-[1fr_auto] gap-[10px] w-full items-center">
                       <div className="relative w-full">
-                        <select id="matrix-sort-dropdown" value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="appearance-none bg-[#090d16] text-white text-[0.9rem] rounded-[8px] cursor-pointer block hover:border-[#00e5ff]/40 transition-colors h-10 w-full pl-[14px] pr-8 box-border">
+                        <select id="matrix-sort-dropdown" value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="appearance-none bg-[#090d16] text-white text-[0.9rem] rounded-[8px] cursor-pointer block hover:border-portfolio-cyan/40 transition-colors h-10 w-full pl-[14px] pr-8 box-border">
                           {SORT_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
                         </select>
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[0.7rem] text-[#a0aec0]">&#9660;</div>
                       </div>
-                      <button type="button" id="reset-sorting" onClick={() => setSelectedGames([])} className="bg-[#090d16] text-[#a0aec0] font-medium text-[0.85rem] rounded-[8px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white hover:border-[#00e5ff]/40 active:scale-95 transition-all duration-150 transform flex-shrink-0 h-10">
+                      <button type="button" id="reset-sorting" onClick={() => setSelectedGames([])} className="bg-[#090d16] text-[#a0aec0] font-medium text-[0.85rem] rounded-[8px] px-4 flex items-center justify-center hover:bg-[#161f2d] hover:text-white hover:border-portfolio-cyan/40 active:scale-95 transition-all duration-150 transform flex-shrink-0 h-10">
                         <span className="-mt-[3px]">Reset</span>
                       </button>
                     </div>
@@ -190,7 +190,7 @@ export default function App() {
                   <div className="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pl-0 pr-3 portfolio-scrollbar" id="game-selection-list">
                     {sortedGames.map((game) => {
                       const selectedIndex = selectedGames.findIndex((selected) => selected.name === game.name);
-                      const selectedBorder = selectedIndex === 0 ? 'border-[#00e5ff] bg-[#141d2a]' : selectedIndex === 1 ? 'border-[#a855f7] bg-[#141d2a]' : 'border-transparent';
+                      const selectedBorder = selectedIndex === 0 ? 'border-portfolio-cyan bg-[#141d2a]' : selectedIndex === 1 ? 'border-portfolio-purple bg-[#141d2a]' : 'border-transparent';
                       return (
                         <button
                           type="button"
@@ -208,7 +208,7 @@ export default function App() {
                           </div>
                           <div className="flex-shrink-0 text-right flex flex-col gap-1 items-end">
                             <span className="bg-black/40 px-2 py-0.5 rounded-[4px] font-mono text-[0.85rem] font-bold text-white">{game.sizeInKb} K</span>
-                            <span className={`text-[0.85rem] font-mono font-bold tracking-wider uppercase ${selectedIndex === 0 ? 'text-[#00e5ff]' : selectedIndex === 1 ? 'text-[#a855f7]' : 'text-[#475569]'}`}>{selectedIndex < 0 ? 'Idle' : `Cart ${selectedIndex === 0 ? 'A' : 'B'}`}</span>
+                            <span className={`text-[0.85rem] font-mono font-bold tracking-wider uppercase ${selectedIndex === 0 ? 'text-portfolio-cyan' : selectedIndex === 1 ? 'text-portfolio-purple' : 'text-[#475569]'}`}>{selectedIndex < 0 ? 'Idle' : `Cart ${selectedIndex === 0 ? 'A' : 'B'}`}</span>
                           </div>
                         </button>
                       );
@@ -240,11 +240,11 @@ export default function App() {
                           if (isExactMatch && memoryKb <= sizeA) {
                             isOverlapping = true;
                           } else if (memoryKb <= sizeA && memoryKb <= sizeB) {
-                            backgroundColor = sizeA <= sizeB ? '#00e5ff' : '#a855f7';
+                            backgroundColor = sizeA <= sizeB ? CYAN_HEX : PURPLE_HEX;
                           } else if (memoryKb <= sizeA) {
-                            backgroundColor = '#00e5ff';
+                            backgroundColor = CYAN_HEX;
                           } else if (memoryKb <= sizeB) {
-                            backgroundColor = '#a855f7';
+                            backgroundColor = PURPLE_HEX;
                           }
 
                           return <div key={memoryKb} className={`aspect-square rounded-[2px] transition-all duration-150 memory-block-node ${isOverlapping ? 'is-overlapping' : ''}`} title={`Memory Block ${memoryKb} (1 KB)`} style={{ backgroundColor: isOverlapping ? undefined : backgroundColor }} />;
@@ -252,10 +252,10 @@ export default function App() {
                       </div>
                       <div className="flex items-center justify-start gap-6 border-t border-[#1a2333] pt-4 font-mono text-sm text-[#a0aec0] flex-wrap flex-shrink-0">
                         <LegendItem color="#111823" label="Empty Bank" />
-                        <LegendItem color="#00e5ff" label="Cart A Only" />
-                        <LegendItem color="#a855f7" label="Cart B Only" />
+                        <LegendItem color={CYAN_HEX} label="Cart A Only" />
+                        <LegendItem color={PURPLE_HEX} label="Cart B Only" />
                         <div className="flex items-center gap-2 relative">
-                          <div className="w-3 h-3 bg-[#00e5ff] rounded-[2px] flex items-center justify-center relative" style={{ boxShadow: 'inset 0 0 0 3px #a855f7' }} />
+                          <div className="w-3 h-3 bg-portfolio-cyan rounded-[2px] flex items-center justify-center relative" style={{ boxShadow: `inset 0 0 0 3px ${PURPLE_HEX}` }} />
                           <span>Exact Overlap</span>
                         </div>
                       </div>
@@ -281,14 +281,14 @@ export default function App() {
 
 function SelectionSlot({ label, game, tone }) {
   return (
-    <div className={`bg-[#111823] p-5 rounded-[16px] border-l-[4px] ${tone === 'cyan' ? 'border-l-[#00e5ff]' : 'border-l-[#a855f7]'} border-t border-r border-b border-[#1a2333]/50 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden h-[115px]`} aria-label={label}>
+    <div className={`bg-[#111823] p-5 rounded-[16px] ${tone === 'cyan' ? 'border-l-portfolio-cyan' : 'border-l-portfolio-purple'} border-l-[4px] border-t border-r border-b border-[#1a2333]/50 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden h-[115px]`} aria-label={label}>
       <div className="w-16 h-fit max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[#090d16]/50">
         {game?.coverUrl
           ? <img src={game.coverUrl} alt="" loading="lazy" className="max-w-full max-h-full object-contain shadow-none" />
           : <div className="w-full py-6 flex items-center justify-center text-[#a0aec0] text-[0.85rem] font-bold font-mono">[ {label.slice(-1)} ]</div>}
       </div>
       <div className="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
-        <span className={`text-[0.85rem] font-mono font-bold uppercase tracking-wider block leading-none ${tone === 'cyan' ? 'text-[#00e5ff]' : 'text-[#a855f7]'}`}>{label}</span>
+        <span className={`text-[0.85rem] font-mono font-bold uppercase tracking-wider block leading-none ${tone === 'cyan' ? 'text-portfolio-cyan' : 'text-portfolio-purple'}`}>{label}</span>
         <strong className="text-white text-[1.15rem] tracking-tight font-bold leading-tight truncate block pt-1.5">{game?.name || 'Select A Title'}</strong>
         <span className="text-[#a0aec0] font-mono text-[0.85rem] block truncate leading-none pt-1">{game ? `${game.sizeInKb} KB | ${game.mapperChip} | ${game.releaseLabel}` : '00 KB | NROM | NONE'}</span>
       </div>

@@ -7,7 +7,8 @@ export default {
         portfolio: {
           bg: '#090d16',
           panel: '#111823',
-          accent: '#00e5ff'
+          cyan: '#00e5ff', 
+          purple: '#fc107e'
         }
       },
       gridTemplateColumns: {
@@ -15,5 +16,14 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [
+    function ({ addBase, theme }) {
+      addBase({
+        ':root': {
+          '--color-portfolio-cyan': theme('colors.portfolio.cyan'),
+          '--color-portfolio-purple': theme('colors.portfolio.purple'),
+        },
+      });
+    },
+  ]
 };

@@ -22,7 +22,7 @@ body {
 #nes-matrix-wrapper .portfolio-tag-line {
   font-family: 'Geist Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
   font-size: 1.1rem !important;
-  color: #00e5ff !important;
+  color: var(--color-portfolio-cyan) !important; /* Consolidated */
   letter-spacing: .05em !important;
   font-weight: 400 !important;
 }
@@ -44,8 +44,8 @@ body {
 }
 
 .memory-block-node.is-overlapping {
-  background-color: #00e5ff !important;
-  box-shadow: inset 0 0 0 4px #a855f7 !important;
+  background-color: var(--color-portfolio-cyan) !important;
+  box-shadow: inset 0 0 0 4px var(--color-portfolio-purple) !important;
 }
 
 .portfolio-scrollbar::-webkit-scrollbar {
@@ -62,6 +62,5 @@ body {
 }
 
 .portfolio-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #00e5ff;
+  background: var(--color-portfolio-cyan); /* Consolidated */
 }
-
