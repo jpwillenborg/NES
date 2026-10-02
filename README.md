@@ -41,7 +41,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-The client runs at `http://localhost:5173` by default. When running alongside the Portfolio, use `npm run dev -- --port 5174`. Set `VITE_API_BASE_URL` to the API origin. Those local dev origins and the production NES subdomain are allowed by default; production origins can be replaced through `Frontend__AllowedOrigins`.
+The client runs at `http://localhost:5173` by default. When running alongside the Portfolio, use `npm run dev -- --port 5175`. Set `VITE_API_BASE_URL` to the API origin. Those local dev origins and the production NES subdomain are allowed by default; production origins can be replaced through `Frontend__AllowedOrigins`.
 
 ## Production Deployment
 
