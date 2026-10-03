@@ -8,7 +8,7 @@ const SORT_OPTIONS = [
 
 export default function GameSelector({ sortedGames, selectedGames, onToggle, sortBy, onSortChange, onReset }) {
   return (
-    <div className="col-span-1 flex flex-col h-full space-y-6 md:space-y-6 max-w-full">
+    <div className="col-span-1 flex flex-col h-full md:h-[calc(100%-7px)] space-y-4 md:space-y-6 max-w-full">
       <div className="bg-[#111823] p-4 md:p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-2.5 flex-shrink-0">
         <span className="text-[0.8rem] md:text-[1rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left pl-[4px]">
           Sort All Games By:
@@ -25,7 +25,7 @@ export default function GameSelector({ sortedGames, selectedGames, onToggle, sor
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[0.7rem] text-[#a0aec0]">&#9660;</div>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[0.65rem] text-[#a0aec0]">&#9660;</div>
           </div>
           <button
             type="button"
