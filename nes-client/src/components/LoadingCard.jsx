@@ -5,7 +5,7 @@ export default function LoadingCard() {
       role="status"
     >
       <span className="font-mono text-[1.1rem] text-portfolio-cyan font-normal tracking-[0.05em] text-center select-none animate-pulse">
-        Loading game catalog...
+        // Loading game catalog...
       </span>
     </div>
   );
