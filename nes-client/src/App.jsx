@@ -69,10 +69,10 @@ export default function App() {
   const memoryDifference = firstGame && secondGame ? Math.abs(firstGame.sizeInKb - secondGame.sizeInKb) : 0;
 
   return (
-    <div className="app-shell flex flex-col min-h-screen w-full max-w-full overflow-x-hidden box-border">
+    <div className="app-shell flex flex-col min-h-screen w-full max-w-full overflow-x-hidden box-border justify-between">
       <Navigation isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
 
-      <div className="w-full box-border relative z-10 px-8 md:px-6 pt-[125px] md:pt-[160px] pb-[60px] md:pb-[120px] max-w-full overflow-x-hidden flex-grow">
+      <div className="w-full box-border relative z-10 px-8 md:px-14 lg:px-6 pt-[125px] md:pt-[160px] pb-[60px] md:pb-16 lg:pb-[120px] max-w-full overflow-x-hidden flex-grow flex flex-col justify-center">
         <main role="main" className="max-w-[1024px] mx-auto w-full box-border">
           <div id="nes-matrix-wrapper" className="w-full relative pb-16">
             <HeroSection />

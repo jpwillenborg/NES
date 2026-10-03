@@ -29,8 +29,8 @@ body {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  #root, body {
-    zoom: 0.78;
+  body, .app-shell {
+    zoom: 0.82;
   }
 
   #allocation-matrix-grid {
