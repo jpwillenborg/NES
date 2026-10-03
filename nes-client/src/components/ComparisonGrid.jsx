@@ -59,7 +59,7 @@ export default function ComparisonGrid({ firstGame, secondGame, difference }) {
             <LegendItem color={CYAN_HEX} label="Cart A Only" />
             <LegendItem color={PURPLE_HEX} label="Cart B Only" />
             <div className="flex items-center gap-1.5 relative">
-              <div className="w-2.5 h-2.5 bg-portfolio-cyan rounded-[1px] md:rounded-[2px] flex items-center justify-center relative" style={{ boxShadow: `inset 0 0 0 2px ${PURPLE_HEX}` }} />
+              <div className="w-2.5 h-2.5 bg-[#39ff14] rounded-[1px] md:rounded-[2px] flex items-center justify-center relative" />
               <span>Exact Overlap</span>
             </div>
           </div>
