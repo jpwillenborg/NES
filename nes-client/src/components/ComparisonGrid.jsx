@@ -75,13 +75,16 @@ export default function ComparisonGrid({ firstGame, secondGame, difference }) {
 function SelectionSlot({ label, game, tone }) {
   return (
     <div className={`bg-[#111823] p-5 rounded-[16px] ${tone === 'cyan' ? 'border-l-portfolio-cyan' : 'border-l-portfolio-purple'} border-l-[4px] border-t border-r border-b border-[#1a2333]/50 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden h-[115px]`} aria-label={label}>
-      <div className="w-16 h-fit max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[#090d16]/50">
+      
+      {/* Visual Update: Changed from bg-[#090d16]/50 to portfolio configuration baseline token */}
+      <div className="w-16 h-fit max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-portfolio-bg">
         {game?.coverUrl ? (
           <img src={game.coverUrl} alt="" loading="lazy" className="max-w-full max-h-full object-contain shadow-none" />
         ) : (
           <div className="w-full py-6 flex items-center justify-center text-[#a0aec0] text-[0.85rem] font-bold font-mono">[ {label.slice(-1)} ]</div>
         )}
       </div>
+
       <div className="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
         <span className={`text-[0.85rem] font-mono font-bold uppercase tracking-wider block leading-none ${tone === 'cyan' ? 'text-portfolio-cyan' : 'text-portfolio-purple'}`}>{label}</span>
         <strong className="text-white text-[1.15rem] tracking-tight font-bold leading-tight truncate block pt-1.5">{game?.name || 'Select A Title'}</strong>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navigation from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import LoadingCard from './components/LoadingCard';
 import GameSelector from './components/GameSelector';
 import ComparisonGrid from './components/ComparisonGrid';
 import Footer from './components/Footer';
@@ -78,7 +79,7 @@ export default function App() {
           <div id="nes-matrix-wrapper" className="w-full relative pb-16">
             <HeroSection />
 
-            {isLoading && <p className="text-[#a0aec0] text-sm font-mono" role="status">Loading game catalog...</p>}
+            {isLoading && <LoadingCard />}
             {!isLoading && error && <div className="bg-red-900/20 border border-red-500/40 p-4 rounded-[8px] text-red-400 mb-6 font-mono text-sm" role="alert">{error}</div>}
 
             {!isLoading && !error && (
