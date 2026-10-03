@@ -64,8 +64,8 @@ export default function App() {
     });
   };
 
-  const firstGame = selectedGames;
-  const secondGame = selectedGames;
+  const firstGame = selectedGames[0];
+  const secondGame = selectedGames[1];
   const memoryDifference = firstGame && secondGame ? Math.abs(firstGame.sizeInKb - secondGame.sizeInKb) : 0;
 
   return (

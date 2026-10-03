@@ -25,7 +25,7 @@ export default function GameSelector({ sortedGames, selectedGames, onToggle, sor
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[0.65rem] text-[#a0aec0]">&#9660;</div>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[0.7rem] text-[#a0aec0]">&#9660;</div>
           </div>
           <button
             type="button"
@@ -38,7 +38,7 @@ export default function GameSelector({ sortedGames, selectedGames, onToggle, sor
         </div>
       </div>
 
-      <div className="bg-[#111823] p-3 md:p-4 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex-grow h-auto max-h-[320px] md:max-h-none md:h-0 min-h-[240px] md:min-h-[300px] flex flex-col overflow-hidden">
+      <div className="bg-[#111823] p-3 md:p-4 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex-grow h-auto max-h-[320px] md:max-h-none md:h-0 min-h-[240px] md:min-h-[300px] flex flex-col overflow-hidden md:translate-y-[7px]">
         <div className="w-full flex-grow flex flex-col gap-2 md:gap-3 overflow-y-auto pr-1 md:pr-2 portfolio-scrollbar" id="game-selection-list">
           {sortedGames.map((game) => {
             const selectedIndex = selectedGames.findIndex((selected) => selected.name === game.name);
