@@ -8,9 +8,9 @@ const SORT_OPTIONS = [
 
 export default function GameSelector({ sortedGames, selectedGames, onToggle, sortBy, onSortChange, onReset }) {
   return (
-    <div className="col-span-1 flex flex-col h-full">
-      {/* Filtering Options Control Panel */}
-      <div className="bg-[#111823] p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-3 mb-4 flex-shrink-0">
+    <div className="col-span-1 flex flex-col h-full space-y-8">
+      {/* 1. Sorting Header Controls Box */}
+      <div className="bg-[#111823] p-5 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] flex flex-col gap-3 flex-shrink-0">
         <span className="text-[1rem] font-mono font-bold text-[#a0aec0] uppercase tracking-wider block text-left pl-[4px]">
           Sort All Games By:
         </span>
@@ -39,7 +39,7 @@ export default function GameSelector({ sortedGames, selectedGames, onToggle, sor
         </div>
       </div>
 
-      {/* Scrollable Game Cards Container */}
+      {/* 2. Scrollable Game Cards Container */}
       <div className="flex-grow h-0 min-h-[300px] flex flex-col gap-3 overflow-y-auto pl-0 pr-3 portfolio-scrollbar" id="game-selection-list">
         {sortedGames.map((game) => {
           const selectedIndex = selectedGames.findIndex((selected) => selected.name === game.name);

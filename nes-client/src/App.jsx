@@ -16,7 +16,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Original promise chain syntax (.then) restored
   useEffect(() => {
     if (!API_BASE_URL) {
       setError('The game data service is not configured for this deployment.');
@@ -44,7 +43,6 @@ export default function App() {
     return () => controller.abort();
   }, []);
 
-  // Compute game array sorting rules
   const sortedGames = [...games].sort((first, second) => {
     if (sortBy === 'name-asc') return first.name.localeCompare(second.name);
     if (sortBy === 'size-desc') return second.sizeInKb - first.sizeInKb;
@@ -79,17 +77,14 @@ export default function App() {
           <div id="nes-matrix-wrapper" className="w-full relative pb-16">
             <HeroSection />
 
-            {/* Error alerts appear inline if the network call fails */}
             {!isLoading && error && (
               <div className="bg-red-900/20 border border-red-500/40 p-4 rounded-lg text-red-400 mb-6 font-mono text-sm" role="alert">
                 {error}
               </div>
             )}
 
-            {/* Restored: Single standalone LoadingCard check */}
             {isLoading && <LoadingCard />}
 
-            {/* Normal layout renders seamlessly once data is ready */}
             {!isLoading && !error && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-10">
                 <GameSelector 

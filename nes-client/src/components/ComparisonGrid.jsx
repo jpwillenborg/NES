@@ -4,14 +4,14 @@ const PURPLE_HEX = 'var(--color-portfolio-purple)';
 
 export default function ComparisonGrid({ firstGame, secondGame, difference }) {
   return (
-    <div className="col-span-1 md:col-span-2 flex flex-col gap-6 h-full justify-between">
-      {/* Top Profile Slots */}
+    <div className="col-span-1 md:col-span-2 flex flex-col gap-8 h-full justify-between">
+      {/* 1. Top Profile Slots */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
         <SelectionSlot label="Cartridge A" game={firstGame} tone="cyan" />
         <SelectionSlot label="Cartridge B" game={secondGame} tone="purple" />
       </div>
 
-      {/* Layout Visualization Grid Matrix wrapper */}
+      {/* 2. Layout Visualization Grid Matrix wrapper */}
       <div id="grid-parent-card" className="bg-[#111823] p-6 rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-[#1a2333]/50 flex flex-col gap-4 flex-grow justify-between">
         <div className="flex justify-between items-center border-b border-[#1a2333] pb-4 flex-shrink-0">
           <h3 className="m-0 text-[1.25rem] font-bold text-white tracking-tight">Visual Size Comparison (In KB)</h3>
@@ -75,8 +75,6 @@ export default function ComparisonGrid({ firstGame, secondGame, difference }) {
 function SelectionSlot({ label, game, tone }) {
   return (
     <div className={`bg-[#111823] p-5 rounded-[16px] ${tone === 'cyan' ? 'border-l-portfolio-cyan' : 'border-l-portfolio-purple'} border-l-[4px] border-t border-r border-b border-[#1a2333]/50 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden h-[115px]`} aria-label={label}>
-      
-      {/* Visual Update: Changed from bg-[#090d16]/50 to portfolio configuration baseline token */}
       <div className="w-16 h-fit max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-portfolio-bg">
         {game?.coverUrl ? (
           <img src={game.coverUrl} alt="" loading="lazy" className="max-w-full max-h-full object-contain shadow-none" />
