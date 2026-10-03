@@ -69,10 +69,10 @@ export default function App() {
   const memoryDifference = firstGame && secondGame ? Math.abs(firstGame.sizeInKb - secondGame.sizeInKb) : 0;
 
   return (
-    <div className="app-shell">
+    <div className="app-shell flex flex-col min-h-screen w-full max-w-full overflow-x-hidden box-border">
       <Navigation isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
 
-      <div className="w-full box-border relative z-10 px-4 sm:px-6" style={{ paddingTop: 160, paddingBottom: 120 }}>
+      <div className="w-full box-border relative z-10 px-8 md:px-6 pt-[100px] md:pt-[160px] pb-[60px] md:pb-[120px] max-w-full overflow-x-hidden">
         <main role="main" className="max-w-[1024px] mx-auto w-full box-border">
           <div id="nes-matrix-wrapper" className="w-full relative pb-16">
             <HeroSection />
@@ -87,19 +87,23 @@ export default function App() {
 
             {!isLoading && !error && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-10">
-                <GameSelector 
-                  sortedGames={sortedGames}
-                  selectedGames={selectedGames}
-                  onToggle={toggleGame}
-                  sortBy={sortBy}
-                  onSortChange={setSortBy}
-                  onReset={() => setSelectedGames([])}
-                />
-                <ComparisonGrid 
-                  firstGame={firstGame}
-                  secondGame={secondGame}
-                  difference={memoryDifference}
-                />
+                <div className="order-1 md:order-none col-span-1">
+                  <GameSelector 
+                    sortedGames={sortedGames}
+                    selectedGames={selectedGames}
+                    onToggle={toggleGame}
+                    sortBy={sortBy}
+                    onSortChange={setSortBy}
+                    onReset={() => setSelectedGames([])}
+                  />
+                </div>
+                <div className="order-2 md:order-none col-span-1 md:col-span-2">
+                  <ComparisonGrid 
+                    firstGame={firstGame}
+                    secondGame={secondGame}
+                    difference={memoryDifference}
+                  />
+                </div>
               </div>
             )}
           </div>

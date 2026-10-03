@@ -15,8 +15,29 @@ body {
 }
 
 #allocation-matrix-grid {
-  display: grid;
-  grid-template-columns: repeat(24, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.memory-block-node {
+  flex: 1 1 calc(4.166% - 2px);
+  min-w: 6px;
+  max-w: 12px;
+}
+
+@media (min-width: 768px) {
+  #allocation-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    gap: 6px;
+  }
+  
+  .memory-block-node {
+    flex: none;
+    min-w: 0;
+    max-w: none;
+  }
 }
 
 .memory-block-node.is-overlapping {
@@ -24,7 +45,6 @@ body {
   box-shadow: inset 0 0 0 4px var(--color-portfolio-purple) !important;
 }
 
-/* Custom Scrollbar Styles */
 .portfolio-scrollbar::-webkit-scrollbar {
   width: 5px;
 }
