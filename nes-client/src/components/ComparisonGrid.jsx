@@ -4,8 +4,8 @@ const PURPLE_HEX = 'var(--color-portfolio-purple)';
 
 export default function ComparisonGrid({ firstGame, secondGame, difference }) {
   return (
-    <div className="flex flex-col gap-6 md:gap-8 h-full justify-between mt-2 md:mt-0">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 flex-shrink-0">
+    <div className="flex flex-col gap-6 md:gap-8 h-full justify-between mt-6 md:mt-0">
+      <div className="grid grid-cols-2 gap-2 md:gap-4 flex-shrink-0">
         <SelectionSlot label="Cartridge A" game={firstGame} tone="cyan" />
         <SelectionSlot label="Cartridge B" game={secondGame} tone="purple" />
       </div>
@@ -54,7 +54,7 @@ export default function ComparisonGrid({ firstGame, secondGame, difference }) {
             })}
           </div>
 
-          <div className="flex items-center justify-start gap-x-4 gap-y-2 border-t border-[#1a2333] pt-3 font-mono text-[10px] md:text-sm text-[#a0aec0] flex-wrap flex-shrink-0">
+          <div className="flex items-center justify-start gap-x-4 gap-y-2 border-t border-[#1a2333] -mt-6 md:mt-2 pt-3 font-mono text-[10px] md:text-sm text-[#a0aec0] flex-wrap flex-shrink-0">
             <LegendItem color="#111823" label="Empty Bank" />
             <LegendItem color={CYAN_HEX} label="Cart A Only" />
             <LegendItem color={PURPLE_HEX} label="Cart B Only" />
@@ -71,19 +71,19 @@ export default function ComparisonGrid({ firstGame, secondGame, difference }) {
 
 function SelectionSlot({ label, game, tone }) {
   return (
-    <div className={`bg-[#111823] p-3 md:p-5 rounded-[14px] md:rounded-[16px] ${tone === 'cyan' ? 'border-l-portfolio-cyan' : 'border-l-portfolio-purple'} border-l-[4px] border-t border-r border-b border-[#1a2333]/50 flex gap-3 md:gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden h-[90px] md:h-[115px]`} aria-label={label}>
-      <div className="w-12 md:w-16 h-fit max-h-[66px] md:max-h-[88px] self-center rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-portfolio-bg">
+    <div className={`bg-[#111823] p-2 md:p-5 rounded-[12px] md:rounded-[16px] ${tone === 'cyan' ? 'border-l-portfolio-cyan' : 'border-l-portfolio-purple'} border-l-[3px] md:border-l-[4px] border-t border-r border-b border-[#1a2333]/50 flex gap-2 md:gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.25)] items-center min-w-0 overflow-hidden h-[75px] md:h-[115px]`} aria-label={label}>
+      <div className="w-9 md:w-16 h-fit max-h-[50px] md:max-h-[88px] self-center rounded-[2px] md:rounded-[4px] overflow-hidden flex-shrink-0 flex items-center justify-center bg-portfolio-bg">
         {game?.coverUrl ? (
           <img src={game.coverUrl} alt="" loading="lazy" className="max-w-full max-h-full object-contain shadow-none" />
         ) : (
-          <div className="w-full py-4 md:py-6 flex items-center justify-center text-[#a0aec0] text-[0.7rem] md:text-[0.85rem] font-bold font-mono">[ {label.slice(-1)} ]</div>
+          <div className="w-full py-2 md:py-6 flex items-center justify-center text-[#a0aec0] text-[0.6rem] md:text-[0.85rem] font-bold font-mono">[ {label.slice(-1)} ]</div>
         )}
       </div>
 
       <div className="flex flex-col justify-center flex-grow min-w-0 w-full overflow-hidden">
-        <span className={`text-[0.7rem] md:text-[0.85rem] font-mono font-bold uppercase tracking-wider block leading-none ${tone === 'cyan' ? 'text-portfolio-cyan' : 'text-portfolio-purple'}`}>{label}</span>
-        <strong className="text-white text-[0.95rem] md:text-[1.15rem] tracking-tight font-bold leading-tight truncate block pt-1 md:pt-1.5">{game?.name || 'Select A Title'}</strong>
-        <span className="text-[#a0aec0] font-mono text-[0.75rem] md:text-[0.85rem] block truncate leading-none pt-1">{game ? `${game.sizeInKb} KB | ${game.mapperChip}` : '00 KB | NROM'}</span>
+        <span className={`text-[0.6rem] md:text-[0.85rem] font-mono font-bold uppercase tracking-wider block leading-none ${tone === 'cyan' ? 'text-portfolio-cyan' : 'text-portfolio-purple'}`}>{label}</span>
+        <strong className="text-white text-[0.8rem] md:text-[1.15rem] tracking-tight font-bold leading-tight truncate block pt-0.5 md:pt-1.5">{game?.name || 'Select Title'}</strong>
+        <span className="text-[#a0aec0] font-mono text-[0.65rem] md:text-[0.85rem] block truncate leading-none pt-0.5">{game ? `${game.sizeInKb}K | ${game.mapperChip}` : '00K | NROM'}</span>
       </div>
     </div>
   );
