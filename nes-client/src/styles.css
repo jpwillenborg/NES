@@ -28,7 +28,17 @@ body {
   background-color: #39ff14 !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+  #root, body {
+    zoom: 0.78;
+  }
+
+  #allocation-matrix-grid {
+    gap: 6px;
+  }
+}
+
+@media (min-width: 1024px) {
   #allocation-matrix-grid {
     gap: 6px;
   }
