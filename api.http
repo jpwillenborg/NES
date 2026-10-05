@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:5220
+
+### Load the game timeline for the React client
+GET {{baseUrl}}/api/games
+Accept: application/json
+
+### OpenAPI document (Development environment only)
+GET {{baseUrl}}/openapi/v1.json
+Accept: application/json
