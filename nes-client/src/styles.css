@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: #090d16;
+  color: #a0aec0;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+#allocation-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  width: 100%;
+}
+
+.memory-block-node {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.memory-block-node.is-overlapping {
+  background-color: #39ff14 !important;
+}
+
+@media (max-width: 767px) {
+  #allocation-matrix-grid {
+    gap: 2px;
+  }
+  
+  .memory-block-node {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    overflow-y: auto !important;
+  }
+
+  .app-shell {
+    zoom: 0.88;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    min-height: 114vh !important;
+  }
+
+  #allocation-matrix-grid {
+    gap: 4px;
+  }
+
+  .memory-block-node {
+    width: 83%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  body {
+    overflow-y: auto !important;
+  }
+
+  .app-shell {
+    zoom: 0.92;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    min-height: 109vh !important;
+  }
+
+  #allocation-matrix-grid {
+    gap: 4px;
+  }
+
+  .memory-block-node {
+    width: 82%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  #allocation-matrix-grid {
+    gap: 6px;
+  }
+
+  .memory-block-node.is-overlapping {
+    background-color: #39ff14 !important;
+    box-shadow: none !important;
+  }
+}
+
+.portfolio-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-portfolio-cyan);
+}
