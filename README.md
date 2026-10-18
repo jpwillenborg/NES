@@ -2,7 +2,7 @@
 
 An interactive hardware catalog visualization application designed to chart retro gaming architecture allocations, cartridge capacity variations, and memory mapper configurations side-by-side inside a reactive performance-matrix component layout.
 
-🔗 **Live Production Deployment:** [https://memory.jpwillenborg.com/](https://memory.jpwillenborg.com/)
+🔗 **Live Production Deployment:** [https://jpwillenborg.com](https://jpwillenborg.com)
 
 🏗️ System Architecture & Engineering
 This software platform functions across an explicit multi-tier decoupled structure:
@@ -20,6 +20,7 @@ This software platform functions across an explicit multi-tier decoupled structu
 *   **Backend API:** C#, .NET 10.0 SDK, ASP.NET Web API Framework
 *   **Third-Party Services:** IGDB Client Engine Wrapper
 *   **Live Infrastructure Hosting:** Apache Linux Systems (Static Web Content), Render Web Containers (Compiled .NET API Executables)
+*   **Automated CI/CD Delivery:** GitHub Actions core orchestration engine. Frontend updates pushed to the `main` branch trigger isolated Node compilation layers and distribute minimized output directories over secure automated FTPS handshakes.
 
 ---
 
@@ -52,7 +53,7 @@ To fully populate live game catalog artwork, the server integrates with the IGDB
 }
 ```
 
-> ⚙️ **Localized Runtime Switch:** If external Twitch/IGDB API keys are omitted in your local workspace, the server gracefully redirects API endpoints to utilize native map definitions. The interface will render all metrics and data calculations completely, substituting the live binary cover art streams with generic dark theme assets. To observe the live cover art populating natively, explore the live pipeline at [https://memory.jpwillenborg.com/](https://memory.jpwillenborg.com/).
+> ⚙️ **Localized Runtime Switch:** If external Twitch/IGDB API keys are omitted in your local workspace, the server gracefully redirects API endpoints to utilize native map definitions. The interface will render all metrics and data calculations completely, substituting the live binary cover art streams with generic dark theme assets. To observe the live cover art populating natively, explore the live pipeline at [https://jpwillenborg.com](https://jpwillenborg.com).
 
 Execute the backend developer stream:
 ```bash
