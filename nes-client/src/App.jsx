@@ -5,10 +5,12 @@ import GameSelector from './components/GameSelector';
 import ComparisonGrid from './components/ComparisonGrid';
 import LoadingCard from './components/LoadingCard';
 import Footer from './components/Footer';
+import NotFoundPage from './components/NotFoundPage';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/\$/, '');
 
 export default function App() {
+  const currentPath = window.location.pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [games, setGames] = useState([]);
   const [selectedGames, setSelectedGames] = useState([]);
@@ -67,6 +69,16 @@ export default function App() {
   const firstGame = selectedGames[0];
   const secondGame = selectedGames[1];
   const memoryDifference = firstGame && secondGame ? Math.abs(firstGame.sizeInKb - secondGame.sizeInKb) : 0;
+
+  if (currentPath !== '/') {
+    return (
+      <div className="app-shell flex flex-col min-h-screen w-full max-w-full overflow-x-hidden box-border bg-[#090d16]">
+        <Navigation isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
+        <NotFoundPage />
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="app-shell flex flex-col min-h-screen w-full max-w-full overflow-x-hidden box-border bg-[#090d16]">
